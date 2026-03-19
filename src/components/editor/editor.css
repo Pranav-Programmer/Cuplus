@@ -1,0 +1,345 @@
+/* ────────────────────────────────────────────────────────
+   RichTextEditor – global styles
+   Add these to your globals.css
+   ──────────────────────────────────────────────────────── */
+
+/* ── Placeholder ── */
+.editor-body:empty::before {
+  content: attr(data-placeholder);
+  color: #475569;
+  pointer-events: none;
+}
+
+/* ── Typography inside editor ── */
+.editor-body h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 1.5rem 0 0.75rem;
+  color: #E2E8F0;
+}
+.editor-body h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 1.25rem 0 0.6rem;
+  color: #E2E8F0;
+}
+.editor-body h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+  color: #E2E8F0;
+}
+.editor-body p {
+  margin-bottom: 0.6rem;
+}
+.editor-body strong { font-weight: 700; }
+.editor-body em { font-style: italic; color: #94A3B8; }
+.editor-body u { text-decoration-color: #2e5bff; }
+.editor-body s { opacity: 0.5; }
+
+.editor-body ul { list-style: disc; margin: 0.5rem 0 0.5rem 1.5rem; }
+.editor-body ol { list-style: decimal; margin: 0.5rem 0 0.5rem 1.5rem; }
+.editor-body li { margin-bottom: 0.25rem; }
+
+/* ── Inline code ── */
+.editor-inline-code,
+.editor-body code:not(pre code) {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.82em;
+  background: rgba(46, 91, 255, 0.12);
+  color: #93C5FD;
+  padding: 1px 6px;
+  border-radius: 5px;
+  border: 1px solid rgba(46, 91, 255, 0.2);
+}
+
+/* ── Blockquote ── */
+.editor-body blockquote {
+  border-left: 3px solid #2e5bff;
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: rgba(46, 91, 255, 0.07);
+  border-radius: 0 8px 8px 0;
+  color: #94A3B8;
+  font-style: italic;
+}
+
+/* ── Links ── */
+.editor-link,
+.editor-body a {
+  color: #60A5FA;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Horizontal rule ── */
+.editor-hr,
+.editor-body hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0;
+}
+
+/* ── Tables ── */
+.editor-table-wrap {
+  margin: 1rem 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: auto;
+}
+.editor-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.editor-table th {
+  background: #1e2330;
+  color: #E2E8F0;
+  font-weight: 600;
+  padding: 9px 13px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.editor-table td {
+  padding: 8px 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #94A3B8;
+}
+.editor-table tr:last-child td { border-bottom: none; }
+.editor-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+.editor-table td[contenteditable="true"]:focus,
+.editor-table th[contenteditable="true"]:focus {
+  outline: 1px solid rgba(46, 91, 255, 0.4);
+  background: rgba(46, 91, 255, 0.06);
+}
+
+.editor-table-controls {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  background: #151922;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+}
+.editor-table-btn {
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #1e2330;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.editor-table-btn:hover {
+  color: #E2E8F0;
+  border-color: #2e5bff;
+  background: rgba(46, 91, 255, 0.1);
+}
+.editor-table-btn--danger:hover {
+  border-color: #f87171;
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+/* ── Code blocks + Prism One Dark theme ── */
+.editor-code-wrap {
+  margin: 1rem 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  background: #0d1117;
+}
+.editor-code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  background: #1e2330;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.editor-code-lang {
+  font-size: 0.72rem;
+  color: #60A5FA;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: lowercase;
+}
+.editor-code-copy {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: #151922;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.editor-code-copy:hover { color: #E2E8F0; }
+
+.editor-pre {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  padding: 14px 16px !important;
+  background: #0d1117 !important;
+  overflow-x: auto;
+}
+.editor-pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace !important;
+  font-size: 0.82rem !important;
+  line-height: 1.7 !important;
+  background: none !important;
+  color: #abb2bf;             /* default text — One Dark foreground */
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  tab-size: 2;
+}
+
+/* ── Prism One Dark token colors ─────────────────────────────────────────────
+   These target the <span class="token …"> elements that Prism.highlight()
+   produces. Without these rules the spans exist in the DOM but have no color.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.editor-pre .token.comment,
+.editor-pre .token.prolog,
+.editor-pre .token.doctype,
+.editor-pre .token.cdata {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.editor-pre .token.punctuation {
+  color: #abb2bf;
+}
+
+.editor-pre .token.property,
+.editor-pre .token.tag,
+.editor-pre .token.boolean,
+.editor-pre .token.number,
+.editor-pre .token.constant,
+.editor-pre .token.symbol,
+.editor-pre .token.deleted,
+.editor-pre .token.class-name {
+  color: #e06c75;   /* red — numbers, booleans, tags */
+}
+
+.editor-pre .token.selector,
+.editor-pre .token.attr-name,
+.editor-pre .token.char,
+.editor-pre .token.builtin,
+.editor-pre .token.string,
+.editor-pre .token.inserted {
+  color: #98c379;   /* green — strings */
+}
+
+.editor-pre .token.operator,
+.editor-pre .token.entity,
+.editor-pre .token.url,
+.editor-pre .token.variable {
+  color: #56b6c2;   /* cyan — operators */
+}
+
+.editor-pre .token.atrule,
+.editor-pre .token.attr-value,
+.editor-pre .token.function {
+  color: #61afef;   /* blue — functions, attr values */
+}
+
+.editor-pre .token.keyword,
+.editor-pre .token.control,
+.editor-pre .token.directive,
+.editor-pre .token.unit {
+  color: #c678dd;   /* purple — keywords (if, for, return, import …) */
+}
+
+.editor-pre .token.regex,
+.editor-pre .token.important {
+  color: #e5c07b;   /* yellow — regex, important */
+}
+
+.editor-pre .token.namespace {
+  color: #e5c07b;
+  opacity: 0.8;
+}
+
+.editor-pre .token.parameter {
+  color: #abb2bf;
+}
+
+.editor-pre .token.bold    { font-weight: bold; }
+.editor-pre .token.italic  { font-style: italic; }
+
+/* Line numbers (if ever added) */
+.editor-pre.line-numbers { padding-left: 3.8em !important; }
+
+/* ── Make <code> inside .editor-body (inline) stay as-is ── */
+
+/* ── Images ── */
+.editor-image-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  margin: 0.75rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+.editor-image-wrap:hover { border-color: rgba(46, 91, 255, 0.4); }
+.editor-image { display: block; max-width: 100%; border-radius: 8px; }
+.editor-image-del {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.12s;
+  cursor: pointer;
+}
+.editor-image-wrap:hover .editor-image-del { opacity: 1; }
+.editor-image-del:hover { background: #ef4444; }
+
+/* ── Checklists ── */
+.editor-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 3px 0;
+}
+.editor-checkbox {
+  width: 15px;
+  height: 15px;
+  accent-color: #2e5bff;
+  margin-top: 5px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.editor-check-text {
+  flex: 1;
+  outline: none;
+  min-height: 1.5em;
+  line-height: 1.6;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.12s;
+}
+.editor-check-text:focus { border-bottom-color: rgba(255, 255, 255, 0.1); }
+.editor-check-del {
+  opacity: 0;
+  color: #94A3B8;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  transition: opacity 0.12s, color 0.12s;
+}
+.editor-checklist-item:hover .editor-check-del { opacity: 1; }
+.editor-checklist-item:hover .editor-check-del:hover { color: #f87171; }

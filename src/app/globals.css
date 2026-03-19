@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/container-queries";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — dark mode (default)
+   All colour values in the app reference these variables.
+   Switching to light mode only requires overriding these 10 variables.
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --bg:              #0B0E14;   /* page background          */
+  --surface:         #151922;   /* card / panel surface     */
+  --surface-2:       #1e2330;   /* raised surface           */
+  --border:          rgba(255,255,255,0.07);
+  --border-strong:   rgba(255,255,255,0.12);
+  --text-main:       #E2E8F0;
+  --text-muted:      #94A3B8;
+  --text-faint:      #64748b;
+  --scrollbar-track: #0B0E14;
+  --scrollbar-thumb: #2e5bff;
+  --scrollbar-hover: #1a40cc;
+  --code-bg:         #0d1117;
+  --shadow-card:     0 25px 50px -12px rgba(0,0,0,0.5);
+  --overlay-bg:      rgba(0,0,0,0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIGHT MODE OVERRIDES
+   Applied when <html data-theme="light"> — set by ThemeToggle component.
+   ═══════════════════════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:              #F1F5F9;
+  --surface:         #FFFFFF;
+  --surface-2:       #F8FAFC;
+  --border:          rgba(0,0,0,0.07);
+  --border-strong:   rgba(0,0,0,0.14);
+  --text-main:       #0F172A;
+  --text-muted:      #475569;
+  --text-faint:      #94A3B8;
+  --scrollbar-track: #F1F5F9;
+  --scrollbar-thumb: #2e5bff;
+  --scrollbar-hover: #1a40cc;
+  --code-bg:         #F8FAFC;
+  --shadow-card:     0 25px 50px -12px rgba(0,0,0,0.12);
+  --overlay-bg:      rgba(0,0,0,0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE — wire body to the tokens
+   ═══════════════════════════════════════════════════════════════════════════ */
+body {
+  background-color: var(--bg);
+  color: var(--text-main);
+  font-family: var(--font-family-display);
+  line-height: 1.6;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL LIGHT-MODE PAINT
+   These selectors target every hardcoded Tailwind bg/border/text class
+   used throughout the app, overriding them when data-theme="light".
+   This is the "no-touch-other-files" strategy: CSS specificity does the work.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Page backgrounds ── */
+[data-theme="light"] .bg-\[\#0B0E14\],
+[data-theme="light"] .bg-\[\#0d1018\],
+[data-theme="light"] .bg-\[\#0e1118\],
+[data-theme="light"] .bg-\[\#111520\],
+[data-theme="light"] .bg-\[\#0f1629\],
+[data-theme="light"] .bg-\[\#0e1535\] {
+  background-color: var(--bg) !important;
+}
+
+/* ── Card / panel surfaces ── */
+[data-theme="light"] .bg-\[\#151922\],
+[data-theme="light"] .bg-\[\#15192b\] {
+  background-color: var(--surface) !important;
+}
+
+[data-theme="light"] .bg-\[\#1e2330\],
+[data-theme="light"] .bg-\[\#1a2456\],
+[data-theme="light"] .bg-\[\#1e1050\],
+[data-theme="light"] .bg-\[\#130d2b\],
+[data-theme="light"] .bg-\[\#1a1d2e\],
+[data-theme="light"] .bg-\[\#1a1330\] {
+  background-color: var(--surface-2) !important;
+}
+
+/* Tailwind named tokens used in components */
+[data-theme="light"] .bg-background-dark   { background-color: var(--bg)      !important; }
+[data-theme="light"] .bg-surface-dark      { background-color: var(--surface)  !important; }
+[data-theme="light"] .bg-surface-dark-lighter { background-color: var(--surface-2) !important; }
+
+/* ── Borders ── */
+[data-theme="light"] .border-white\/5,
+[data-theme="light"] .border-white\/8,
+[data-theme="light"] .border-white\/10,
+[data-theme="light"] .border-white\/\[0\.08\] { border-color: var(--border) !important; }
+
+[data-theme="light"] .border-gray-800,
+[data-theme="light"] .border-white\/12 { border-color: var(--border-strong) !important; }
+
+/* ── Text ── */
+[data-theme="light"] .text-\[\#E2E8F0\] { color: var(--text-main)  !important; }
+[data-theme="light"] .text-\[\#94A3B8\] { color: var(--text-muted) !important; }
+[data-theme="light"] .text-\[\#64748b\],
+[data-theme="light"] .text-\[\#4B5563\] { color: var(--text-faint) !important; }
+[data-theme="light"] .text-white         { color: var(--text-main)  !important; }
+[data-theme="light"] .placeholder-\[\#4B5563\]::placeholder { color: var(--text-faint) !important; }
+[data-theme="light"] .placeholder-\[\#94A3B8\]\/60::placeholder { color: var(--text-muted) !important; }
+
+/* ── Sidebar / header ── */
+[data-theme="light"] .bg-\[\#151922\]\/95,
+[data-theme="light"] .bg-\[\#151922\]\/90 {
+  background-color: rgba(255,255,255,0.97) !important;
+}
+
+/* ── White/black overlays ── */
+[data-theme="light"] .bg-white\/5  { background-color: rgba(0,0,0,0.04) !important; }
+[data-theme="light"] .bg-white\/10 { background-color: rgba(0,0,0,0.07) !important; }
+[data-theme="light"] .bg-white\/\[0\.04\],
+[data-theme="light"] .bg-white\/\[0\.05\],
+[data-theme="light"] .bg-white\/\[0\.06\] { background-color: rgba(0,0,0,0.04) !important; }
+[data-theme="light"] .hover\:bg-white\/5:hover  { background-color: rgba(0,0,0,0.04) !important; }
+[data-theme="light"] .hover\:bg-white\/10:hover { background-color: rgba(0,0,0,0.07) !important; }
+
+/* ── Inputs ── */
+[data-theme="light"] input,
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background-color: var(--surface-2) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-strong) !important;
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder { color: var(--text-faint) !important; }
+
+/* ── Code blocks ── */
+[data-theme="light"] .bg-\[\#0d1117\],
+[data-theme="light"] .editor-pre,
+[data-theme="light"] .editor-code-wrap { background-color: var(--code-bg) !important; }
+[data-theme="light"] .editor-code-header { background-color: var(--surface-2) !important; }
+
+/* ── Shadow overrides ── */
+[data-theme="light"] [style*="box-shadow"] { --shadow-card: 0 4px 24px rgba(0,0,0,0.1); }
+
+/* Smooth transitions on theme switch for key properties */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+/* Don't transition animations / transforms */
+[class*="animate-"],
+[style*="animation"],
+[style*="transform"] {
+  transition: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   @theme — Tailwind v4 design tokens
+   ═══════════════════════════════════════════════════════════════════════════ */
+@theme {
+  --color-primary:              #2e5bff;
+  --color-primary-dark:         #1a40cc;
+  --color-background-dark:      var(--bg);
+  --color-surface-dark:         var(--surface);
+  --color-surface-dark-lighter: var(--surface-2);
+  --color-text-main:            var(--text-main);
+  --color-text-muted:           var(--text-muted);
+
+  --font-family-display: Inter, sans-serif;
+
+  --border-radius:     0.25rem;
+  --border-radius-lg:  0.5rem;
+  --border-radius-xl:  0.75rem;
+  --border-radius-2xl: 1rem;
+  --border-radius-full: 9999px;
+
+  --shadow-glow: 0 0 15px -3px rgba(46,91,255,0.3);
+  --shadow-card: var(--shadow-card);
+
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+.custom-scrollbar::-webkit-scrollbar       { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(46,91,255,0.3); border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(46,91,255,0.5); }
+
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY
+   ═══════════════════════════════════════════════════════════════════════════ */
+.bg-grid-pattern {
+  background-image: radial-gradient(#2e5bff 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+}
+
+@media (max-width: 1023px) {
+  .no-scrollbar-mobile { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar-mobile::-webkit-scrollbar { display: none; }
+  .xl-hidden { overflow-x: hidden; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RICH TEXT EDITOR STYLES  (unchanged from original)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.editor-body:empty::before {
+  content: attr(data-placeholder);
+  color: #475569;
+  pointer-events: none;
+}
+
+.editor-body h1 { font-size: 2rem; font-weight: 700; line-height: 1.2; margin: 1.5rem 0 0.75rem; color: var(--text-main); }
+.editor-body h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin: 1.25rem 0 0.6rem; color: var(--text-main); }
+.editor-body h3 { font-size: 1.15rem; font-weight: 600; margin: 1rem 0 0.5rem; color: var(--text-main); }
+.editor-body p  { margin-bottom:.6rem; }
+.editor-body strong { font-weight: 700; }
+.editor-body em { font-style: italic; color: var(--text-muted); }
+.editor-body u  { text-decoration-color:#2e5bff; }
+.editor-body s  { opacity:.5; }
+.editor-body ul { list-style:disc; margin:.5rem 0 .5rem 1.5rem; }
+.editor-body ol { list-style:decimal; margin:.5rem 0 .5rem 1.5rem; }
+.editor-body li { margin-bottom:.25rem; }
+
+.editor-body code:not(pre code) {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.82em;
+  background: rgba(46, 91, 255, 0.1);
+  color: #2e5bff;
+  padding: 1px 6px;
+  border-radius: 5px;
+  border: 1px solid rgba(46, 91, 255, 0.2);
+}
+
+.editor-body blockquote {
+  border-left:3px solid #2e5bff;
+  margin:1rem 0; padding:.75rem 1rem;
+  background:rgba(46,91,255,0.07);
+  border-radius:0 8px 8px 0;
+  color:#94A3B8; font-style:italic;
+}
+
+.editor-link, .editor-body a { color:#60A5FA; text-decoration:underline; text-underline-offset:2px; }
+.editor-hr, .editor-body hr  { border:none; border-top:1px solid rgba(255,255,255,0.1); margin:1.5rem 0; }
+
+.editor-table-wrap  { margin:1rem 0; border-radius:10px; border:1px solid rgba(255,255,255,0.1); overflow:auto; }
+.editor-table       { width:100%; border-collapse:collapse; font-size:.875rem; }
+.editor-table th    { background:#1e2330; color:#E2E8F0; font-weight:600; padding:9px 13px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1); }
+.editor-table td    { padding:8px 13px; border-bottom:1px solid rgba(255,255,255,0.06); color:#94A3B8; }
+.editor-table tr:last-child td { border-bottom:none; }
+.editor-table tr:hover td { background:rgba(255,255,255,0.02); }
+.editor-table td[contenteditable="true"]:focus,
+.editor-table th[contenteditable="true"]:focus { outline:1px solid rgba(46,91,255,0.4); background:rgba(46,91,255,0.06); }
+.editor-table-controls { display:flex; gap:6px; padding:8px; background:#151922; border-top:1px solid rgba(255,255,255,0.06); flex-wrap:wrap; }
+.editor-table-btn { font-size:.7rem; padding:4px 10px; border-radius:6px; background:#1e2330; border:1px solid rgba(255,255,255,0.1); color:#94A3B8; cursor:pointer; transition:all .12s; }
+.editor-table-btn:hover { color:#E2E8F0; border-color:#2e5bff; background:rgba(46,91,255,0.1); }
+.editor-table-btn--danger:hover { border-color:#f87171; color:#f87171; background:rgba(248,113,113,0.1); }
+
+.editor-code-wrap   { margin:1rem 0; border-radius:10px; border:1px solid rgba(255,255,255,0.1); overflow:hidden; background:#0d1117; }
+.editor-code-header { display:flex; align-items:center; justify-content:space-between; padding:6px 14px; background:#1e2330; border-bottom:1px solid rgba(255,255,255,0.08); }
+.editor-code-lang   { font-size:.72rem; color:#60A5FA; font-family:'JetBrains Mono',monospace; text-transform:lowercase; }
+.editor-code-copy   { font-size:.7rem; color:#94A3B8; padding:2px 8px; border-radius:5px; background:#151922; border:1px solid rgba(255,255,255,0.1); cursor:pointer; transition:all .12s; }
+.editor-code-copy:hover { color:#E2E8F0; }
+
+.editor-pre { margin:0!important; border-radius:0!important; padding:14px 16px!important; background:#0d1117!important; overflow-x:auto; }
+.editor-pre code { font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace!important; font-size:.82rem!important; line-height:1.7!important; background:none!important; color:#abb2bf; white-space:pre; word-spacing:normal; word-break:normal; tab-size:2; }
+
+.editor-pre .token.comment,.editor-pre .token.prolog,.editor-pre .token.doctype,.editor-pre .token.cdata { color:#5c6370; font-style:italic; }
+.editor-pre .token.punctuation { color:#abb2bf; }
+.editor-pre .token.property,.editor-pre .token.tag,.editor-pre .token.boolean,.editor-pre .token.number,.editor-pre .token.constant,.editor-pre .token.symbol,.editor-pre .token.deleted,.editor-pre .token.class-name { color:#e06c75; }
+.editor-pre .token.selector,.editor-pre .token.attr-name,.editor-pre .token.char,.editor-pre .token.builtin,.editor-pre .token.string,.editor-pre .token.inserted { color:#98c379; }
+.editor-pre .token.operator,.editor-pre .token.entity,.editor-pre .token.url,.editor-pre .token.variable { color:#56b6c2; }
+.editor-pre .token.atrule,.editor-pre .token.attr-value,.editor-pre .token.function { color:#61afef; }
+.editor-pre .token.keyword,.editor-pre .token.control,.editor-pre .token.directive,.editor-pre .token.unit { color:#c678dd; }
+.editor-pre .token.regex,.editor-pre .token.important { color:#e5c07b; }
+.editor-pre .token.namespace { color:#e5c07b; opacity:.8; }
+.editor-pre .token.parameter { color:#abb2bf; }
+.editor-pre .token.bold   { font-weight:bold; }
+.editor-pre .token.italic { font-style:italic; }
+.editor-pre.line-numbers  { padding-left:3.8em!important; }
+
+.editor-image-wrap { position:relative; display:inline-block; max-width:100%; margin:.75rem 0; border-radius:10px; overflow:hidden; border:2px solid transparent; transition:border-color .15s; }
+.editor-image-wrap:hover { border-color:rgba(46,91,255,0.4); }
+.editor-image { display:block; max-width:100%; border-radius:8px; }
+.editor-image-del { position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.75); color:#fff; border:none; border-radius:6px; padding:4px 10px; font-size:.7rem; opacity:0; transition:opacity .15s,background .12s; cursor:pointer; }
+.editor-image-wrap:hover .editor-image-del { opacity:1; }
+.editor-image-del:hover { background:#ef4444; }
+
+.editor-checklist-item { display:flex; align-items:flex-start; gap:10px; padding:3px 0; }
+.editor-checkbox { width:15px; height:15px; accent-color:#2e5bff; margin-top:5px; flex-shrink:0; cursor:pointer; }
+.editor-check-text { flex:1; outline:none; min-height:1.5em; line-height:1.6; border-bottom:1px dashed transparent; transition:border-color .12s; }
+.editor-check-text:focus { border-bottom-color:rgba(255,255,255,0.1); }
+.editor-check-del { opacity:0; color:#94A3B8; cursor:pointer; font-size:.75rem; padding:2px 5px; border-radius:4px; background:transparent; border:none; transition:opacity .12s,color .12s; }
+.editor-checklist-item:hover .editor-check-del { opacity:1; }
+.editor-checklist-item:hover .editor-check-del:hover { color:#f87171; }
