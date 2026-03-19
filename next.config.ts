@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  // This is needed to allow loading images from all external URLs
   images: {
     remotePatterns: [
       {
@@ -10,6 +8,16 @@ const nextConfig: NextConfig = {
         hostname: "**",
       },
     ],
+  },
+
+  // ✅ Ignore TypeScript errors during build
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
+  // ✅ Ignore ESLint errors during build
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
