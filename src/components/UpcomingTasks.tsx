@@ -161,7 +161,7 @@ const UpcomingTasks: React.FC = () => {
             className="text-sm font-medium"
             style={{ color: "var(--text-muted)" }}
           >
-            You're all clear!
+            You&apos;re all clear!
           </p>
           <p className="text-xs mt-0.5" style={{ color: "var(--text-faint)" }}>
             No upcoming tasks

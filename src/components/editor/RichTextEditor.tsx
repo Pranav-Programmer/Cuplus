@@ -66,7 +66,6 @@ export default function RichTextEditor({
   initialContent = '',
   onChange,
   placeholder = 'Start writing your document…',
-  minHeight = '400px',
   className = '',
 }: RichTextEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
@@ -381,7 +380,7 @@ export default function RichTextEditor({
       style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
     >
       {/* ── Toolbar – sticky at top, never scrolls ── */}
-      <div className="flex-shrink-0 sticky top-0 z-10" style={{ background: 'var(--surface-2)' }}>
+      <div className="shrink-0 sticky top-0 z-10" style={{ background: 'var(--surface-2)' }}>
         <EditorToolbar
           onFormat={handleFormat}
           onBlockFormat={handleBlockFormat}
@@ -411,7 +410,7 @@ export default function RichTextEditor({
       />
 
       {/* ── Word count footer – always visible at bottom ── */}
-      <div className="flex-shrink-0 px-5 py-2 flex items-center justify-end gap-4"
+      <div className="shrink-0 px-5 py-2 flex items-center justify-end gap-4"
         style={{ borderTop: '1px solid var(--border)', background: 'var(--surface-2)' }}>
         <span className="text-xs" style={{ color: 'var(--text-faint)' }}>
           {wordCount} words · {charCount} chars

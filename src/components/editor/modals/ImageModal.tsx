@@ -86,8 +86,8 @@ export default function ImageModal({ isOpen, onClose, onInsert }: ImageModalProp
             onClick={() => fileRef.current?.click()}
             className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${
               isDragging
-                ? 'border-[#2e5bff] bg-[#2e5bff]/10'
-                : 'border-white/10 hover:border-[#2e5bff]/50 hover:bg-white/5'
+                ? 'border-primary bg-primary/10'
+                : 'border-white/10 hover:border-primary/50 hover:bg-white/5'
             }`}
           >
             <ImageIcon className="mx-auto mb-2 text-[#94A3B8]" size={28} />

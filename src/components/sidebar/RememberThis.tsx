@@ -92,7 +92,7 @@ export default function RememberThis({ userId }: { userId: string }) {
           Nothing saved yet. Hit + to add.
         </p>
       ) : (
-        <div className="space-y-1 max-h-[160px] overflow-y-auto no-scrollbar pr-0.5">
+        <div className="space-y-1 max-h-40 overflow-y-auto no-scrollbar pr-0.5">
           {memories.map((m) => (
             <button
               key={m.id}

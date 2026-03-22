@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '@/lib/firebase';
-import { collection, query, where, getDocs, deleteDoc, writeBatch, doc } from 'firebase/firestore';
+import { collection, query, where, getDocs, writeBatch } from 'firebase/firestore';
 
 interface Counts { notes: number; tasks: number; projects: number; sanctumPersonal: number; sanctumOfficial: number; }
 

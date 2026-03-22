@@ -21,7 +21,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div
         className={`fixed inset-0 z-30 transform ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 md:static md:z-auto transition-transform duration-300 ease-in-out w-max md:w-64 flex-shrink-0`}
+        } md:translate-x-0 md:static md:z-auto transition-transform duration-300 ease-in-out w-max md:w-64 shrink-0`}
       >
         <Sidebar />
       </div>

@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { Loader2, Lock, Search, Trash2, AlertCircle, Eye, EyeOff, Shield, Tag, BookOpen, Calendar, Edit2 } from 'lucide-react';
+import { Loader2, Search, Trash2, AlertCircle, Eye, EyeOff, Shield, Tag, BookOpen, Calendar, Edit2 } from 'lucide-react';
 import CuplusLoader from '@/components/CuplusLoader';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import Layout from '@/components/Layout';
-import SanctumCard from '@/components/SanctumCard';
-import SanctumCreator from '@/components/SanctumCreator';
-import SanctumHero from '@/components/SanctumHero';
+import SanctumCard from '@/components/Sanctum/SanctumCard';
+import SanctumCreator from '@/components/Sanctum/SanctumCreator';
+import SanctumHero from '@/components/Sanctum/SanctumHero';
 import DeleteConfirmation from '@/components/DeleteConfirmation';
 import {
   getSanctumSettings,
@@ -353,193 +353,193 @@ export default function SanctumPage() {
   }
 
   // ── Detail view — portal renders on document.body, outside Layout's scroll DOM ──
-  const DetailView = ({ project }: { project: SanctumProject }) => {
-    const accentClass = project.space === 'personal'
-      ? { badge: 'bg-violet-500/10 text-violet-400', border: 'border-violet-500/20' }
-      : { badge: 'bg-amber-500/10 text-amber-400',   border: 'border-amber-500/20' };
+  // const DetailView = ({ project }: { project: SanctumProject }) => {
+  //   const accentClass = project.space === 'personal'
+  //     ? { badge: 'bg-violet-500/10 text-violet-400', border: 'border-violet-500/20' }
+  //     : { badge: 'bg-amber-500/10 text-amber-400',   border: 'border-amber-500/20' };
 
-    // Lock body scroll for the duration this overlay is mounted
-    useEffect(() => {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      return () => { document.body.style.overflow = prev; };
-    }, []);
+  //   // Lock body scroll for the duration this overlay is mounted
+  //   useEffect(() => {
+  //     const prev = document.body.style.overflow;
+  //     document.body.style.overflow = 'hidden';
+  //     return () => { document.body.style.overflow = prev; };
+  //   }, []);
 
-    return createPortal(
-      <div className="fixed inset-0 z-[9999] bg-[#0B0E14] flex flex-col">
+  //   return createPortal(
+  //     <div className="fixed inset-0 z-[9999] bg-[#0B0E14] flex flex-col">
 
-        {/* ── Sticky header ── */}
-        <header className="shrink-0 bg-[#151922]/95 backdrop-blur border-b border-white/10
-          px-4 sm:px-8 py-4 flex items-center gap-3">
-          <button
-            onClick={() => setDetailProject(null)}
-            className="flex items-center gap-1.5 text-sm text-[#94A3B8]
-              hover:text-[#E2E8F0] transition-colors shrink-0"
-          >
-            ← Back
-          </button>
-          <span className="text-white/20">/</span>
-          <h1 className="flex-1 font-semibold text-[#E2E8F0] text-base truncate min-w-0">
-            {project.title}
-          </h1>
-          <button
-            onClick={() => { setDetailProject(null); setEditingProject(project); setCreatorOpen(true); }}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-[#94A3B8]
-              hover:text-[#E2E8F0] hover:bg-white/10 border border-white/10
-              rounded-lg transition-colors shrink-0"
-          >
-            <Edit2 size={13} /> Edit
-          </button>
-          <button
-            onClick={() => {
-              setDetailProject(null);
-              setDeleteModal({ open: true, id: project.id, name: project.title });
-            }}
-            className="p-1.5 text-[#94A3B8] hover:text-red-400 hover:bg-red-500/10
-              rounded-lg transition-colors border border-white/10 shrink-0"
-          >
-            <Trash2 size={14} />
-          </button>
-        </header>
+  //       {/* ── Sticky header ── */}
+  //       <header className="shrink-0 bg-[#151922]/95 backdrop-blur border-b border-white/10
+  //         px-4 sm:px-8 py-4 flex items-center gap-3">
+  //         <button
+  //           onClick={() => setDetailProject(null)}
+  //           className="flex items-center gap-1.5 text-sm text-[#94A3B8]
+  //             hover:text-[#E2E8F0] transition-colors shrink-0"
+  //         >
+  //           ← Back
+  //         </button>
+  //         <span className="text-white/20">/</span>
+  //         <h1 className="flex-1 font-semibold text-[#E2E8F0] text-base truncate min-w-0">
+  //           {project.title}
+  //         </h1>
+  //         <button
+  //           onClick={() => { setDetailProject(null); setEditingProject(project); setCreatorOpen(true); }}
+  //           className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-[#94A3B8]
+  //             hover:text-[#E2E8F0] hover:bg-white/10 border border-white/10
+  //             rounded-lg transition-colors shrink-0"
+  //         >
+  //           <Edit2 size={13} /> Edit
+  //         </button>
+  //         <button
+  //           onClick={() => {
+  //             setDetailProject(null);
+  //             setDeleteModal({ open: true, id: project.id, name: project.title });
+  //           }}
+  //           className="p-1.5 text-[#94A3B8] hover:text-red-400 hover:bg-red-500/10
+  //             rounded-lg transition-colors border border-white/10 shrink-0"
+  //         >
+  //           <Trash2 size={14} />
+  //         </button>
+  //       </header>
 
-        {/* ── Body: scrollable main + sticky sidebar ── */}
-        {/* flex-1 + min-h-0 gives the row a bounded height so overflow-y-auto works */}
-        <div className="flex flex-1 min-h-0 gap-8 px-4 sm:px-8 py-8
-          max-w-6xl mx-auto w-full overflow-hidden">
+  //       {/* ── Body: scrollable main + sticky sidebar ── */}
+  //       {/* flex-1 + min-h-0 gives the row a bounded height so overflow-y-auto works */}
+  //       <div className="flex flex-1 min-h-0 gap-8 px-4 sm:px-8 py-8
+  //         max-w-6xl mx-auto w-full overflow-hidden">
 
-          {/* Main content — ONLY this scrolls */}
-          <main className="flex-1 min-w-0 overflow-y-auto pr-1">
-            {project.thumbnailUrl && (
-              <div className="w-full h-56 sm:h-72 rounded-2xl overflow-hidden mb-8 border border-white/10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={project.thumbnailUrl} alt={project.title}
-                  className="w-full h-full object-cover" />
-              </div>
-            )}
+  //         {/* Main content — ONLY this scrolls */}
+  //         <main className="flex-1 min-w-0 overflow-y-auto pr-1">
+  //           {project.thumbnailUrl && (
+  //             <div className="w-full h-56 sm:h-72 rounded-2xl overflow-hidden mb-8 border border-white/10">
+  //               {/* eslint-disable-next-line @next/next/no-img-element */}
+  //               <img src={project.thumbnailUrl} alt={project.title}
+  //                 className="w-full h-full object-cover" />
+  //             </div>
+  //           )}
 
-            <div className="flex items-center flex-wrap gap-2 mb-3">
-              {project.category && (
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium
-                  bg-violet-500/15 text-violet-300 border border-violet-500/20">
-                  {project.category}
-                </span>
-              )}
-              <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase
-                ${accentClass.badge}`}>
-                🔐 {project.space}
-              </span>
-            </div>
+  //           <div className="flex items-center flex-wrap gap-2 mb-3">
+  //             {project.category && (
+  //               <span className="px-2.5 py-0.5 rounded-full text-xs font-medium
+  //                 bg-violet-500/15 text-violet-300 border border-violet-500/20">
+  //                 {project.category}
+  //               </span>
+  //             )}
+  //             <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase
+  //               ${accentClass.badge}`}>
+  //               🔐 {project.space}
+  //             </span>
+  //           </div>
 
-            <h1 className="text-3xl sm:text-4xl font-bold text-[#E2E8F0] mb-6 leading-tight">
-              {project.title}
-            </h1>
+  //           <h1 className="text-3xl sm:text-4xl font-bold text-[#E2E8F0] mb-6 leading-tight">
+  //             {project.title}
+  //           </h1>
 
-            <div
-              className="editor-body prose-invert text-[#E2E8F0] text-sm leading-7"
-              dangerouslySetInnerHTML={{
-                __html: project.content ||
-                  '<p style="color:#94A3B8">No content yet. Click Edit to start writing.</p>',
-              }}
-            />
-          </main>
+  //           <div
+  //             className="editor-body prose-invert text-[#E2E8F0] text-sm leading-7"
+  //             dangerouslySetInnerHTML={{
+  //               __html: project.content ||
+  //                 '<p style="color:#94A3B8">No content yet. Click Edit to start writing.</p>',
+  //             }}
+  //           />
+  //         </main>
 
-          {/* Sidebar — sticky, never scrolls itself */}
-          <aside className="w-60 shrink-0 hidden lg:block">
-            <div className="sticky top-0 space-y-4">
+  //         {/* Sidebar — sticky, never scrolls itself */}
+  //         <aside className="w-60 shrink-0 hidden lg:block">
+  //           <div className="sticky top-0 space-y-4">
 
-              {/* Project Info */}
-              <div className="bg-[#151922] border border-white/10 rounded-2xl p-4 space-y-4">
-                <h3 className="text-xs text-[#94A3B8] font-semibold uppercase tracking-wider">
-                  Project Info
-                </h3>
+  //             {/* Project Info */}
+  //             <div className="bg-[#151922] border border-white/10 rounded-2xl p-4 space-y-4">
+  //               <h3 className="text-xs text-[#94A3B8] font-semibold uppercase tracking-wider">
+  //                 Project Info
+  //               </h3>
 
-                {project.category && (
-                  <div className="flex items-start gap-2">
-                    <Tag size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-xs text-[#94A3B8] mb-0.5">Category</p>
-                      <span className="text-sm text-[#E2E8F0] font-medium">{project.category}</span>
-                    </div>
-                  </div>
-                )}
+  //               {project.category && (
+  //                 <div className="flex items-start gap-2">
+  //                   <Tag size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
+  //                   <div>
+  //                     <p className="text-xs text-[#94A3B8] mb-0.5">Category</p>
+  //                     <span className="text-sm text-[#E2E8F0] font-medium">{project.category}</span>
+  //                   </div>
+  //                 </div>
+  //               )}
 
-                <div className="flex items-start gap-2">
-                  <Shield size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-[#94A3B8] mb-0.5">Space</p>
-                    <span className={`text-sm font-semibold capitalize
-                      ${project.space === 'personal' ? 'text-violet-400' : 'text-amber-400'}`}>
-                      {project.space === 'personal' ? '🔮' : '💼'} {project.space}
-                    </span>
-                  </div>
-                </div>
+  //               <div className="flex items-start gap-2">
+  //                 <Shield size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
+  //                 <div>
+  //                   <p className="text-xs text-[#94A3B8] mb-0.5">Space</p>
+  //                   <span className={`text-sm font-semibold capitalize
+  //                     ${project.space === 'personal' ? 'text-violet-400' : 'text-amber-400'}`}>
+  //                     {project.space === 'personal' ? '🔮' : '💼'} {project.space}
+  //                   </span>
+  //                 </div>
+  //               </div>
 
-                {(project.wordCount ?? 0) > 0 && (
-                  <div className="flex items-start gap-2">
-                    <BookOpen size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-xs text-[#94A3B8] mb-0.5">Word count</p>
-                      <span className="text-sm text-[#E2E8F0] font-medium">
-                        {project.wordCount?.toLocaleString()} words
-                      </span>
-                    </div>
-                  </div>
-                )}
+  //               {(project.wordCount ?? 0) > 0 && (
+  //                 <div className="flex items-start gap-2">
+  //                   <BookOpen size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
+  //                   <div>
+  //                     <p className="text-xs text-[#94A3B8] mb-0.5">Word count</p>
+  //                     <span className="text-sm text-[#E2E8F0] font-medium">
+  //                       {project.wordCount?.toLocaleString()} words
+  //                     </span>
+  //                   </div>
+  //                 </div>
+  //               )}
 
-                <div className="flex items-start gap-2">
-                  <Calendar size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-[#94A3B8] mb-0.5">Last updated</p>
-                    <span className="text-xs text-[#E2E8F0]">{formatDate(project.updatedAt)}</span>
-                  </div>
-                </div>
+  //               <div className="flex items-start gap-2">
+  //                 <Calendar size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
+  //                 <div>
+  //                   <p className="text-xs text-[#94A3B8] mb-0.5">Last updated</p>
+  //                   <span className="text-xs text-[#E2E8F0]">{formatDate(project.updatedAt)}</span>
+  //                 </div>
+  //               </div>
 
-                <div className="flex items-start gap-2">
-                  <Calendar size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-[#94A3B8] mb-0.5">Created</p>
-                    <span className="text-xs text-[#E2E8F0]">{formatDate(project.createdAt)}</span>
-                  </div>
-                </div>
+  //               <div className="flex items-start gap-2">
+  //                 <Calendar size={14} className="text-[#94A3B8] mt-0.5 shrink-0" />
+  //                 <div>
+  //                   <p className="text-xs text-[#94A3B8] mb-0.5">Created</p>
+  //                   <span className="text-xs text-[#E2E8F0]">{formatDate(project.createdAt)}</span>
+  //                 </div>
+  //               </div>
 
-                {/* Encryption notice */}
-                <div className={`rounded-xl p-2.5 bg-violet-500/10 border ${accentClass.border}`}>
-                  <p className="text-[10px] text-violet-300 leading-relaxed">
-                    🔒 Title & content are AES-256 encrypted. Only you can read this.
-                  </p>
-                </div>
-              </div>
+  //               {/* Encryption notice */}
+  //               <div className={`rounded-xl p-2.5 bg-violet-500/10 border ${accentClass.border}`}>
+  //                 <p className="text-[10px] text-violet-300 leading-relaxed">
+  //                   🔒 Title & content are AES-256 encrypted. Only you can read this.
+  //                 </p>
+  //               </div>
+  //             </div>
 
-              {/* Quick Actions */}
-              <div className="bg-[#151922] border border-white/10 rounded-2xl p-4 space-y-1">
-                <h3 className="text-xs text-[#94A3B8] font-semibold uppercase tracking-wider mb-3">
-                  Quick Actions
-                </h3>
-                <button
-                  onClick={() => { setDetailProject(null); setEditingProject(project); setCreatorOpen(true); }}
-                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#94A3B8]
-                    hover:text-[#E2E8F0] hover:bg-white/5 rounded-lg transition-colors text-left"
-                >
-                  <Edit2 size={13} /> Edit Document
-                </button>
-                <button
-                  onClick={() => {
-                    setDetailProject(null);
-                    setDeleteModal({ open: true, id: project.id, name: project.title });
-                  }}
-                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400
-                    hover:bg-red-500/10 rounded-lg transition-colors text-left"
-                >
-                  <Trash2 size={13} /> Delete forever
-                </button>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>,
-      document.body
-    );
-  };
+  //             {/* Quick Actions */}
+  //             <div className="bg-[#151922] border border-white/10 rounded-2xl p-4 space-y-1">
+  //               <h3 className="text-xs text-[#94A3B8] font-semibold uppercase tracking-wider mb-3">
+  //                 Quick Actions
+  //               </h3>
+  //               <button
+  //                 onClick={() => { setDetailProject(null); setEditingProject(project); setCreatorOpen(true); }}
+  //                 className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#94A3B8]
+  //                   hover:text-[#E2E8F0] hover:bg-white/5 rounded-lg transition-colors text-left"
+  //               >
+  //                 <Edit2 size={13} /> Edit Document
+  //               </button>
+  //               <button
+  //                 onClick={() => {
+  //                   setDetailProject(null);
+  //                   setDeleteModal({ open: true, id: project.id, name: project.title });
+  //                 }}
+  //                 className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400
+  //                   hover:bg-red-500/10 rounded-lg transition-colors text-left"
+  //               >
+  //                 <Trash2 size={13} /> Delete forever
+  //               </button>
+  //             </div>
+  //           </div>
+  //         </aside>
+  //       </div>
+  //     </div>,
+  //     document.body
+  //   );
+  // };
 
   return (
     <Layout>

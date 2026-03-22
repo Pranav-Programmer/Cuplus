@@ -21,7 +21,7 @@ interface Props {
   designation: string;
 }
 
-export default function ProfileSidebar({ name, email, photoURL, designation }: Props) {
+export default function ProfileSidebar({ name }: Props) {
   const router = useRouter();
   const [active, setActive] = useState('account');
 
@@ -50,7 +50,7 @@ export default function ProfileSidebar({ name, email, photoURL, designation }: P
     router.push('/onboarding');
   };
 
-  const initials = name.charAt(0).toUpperCase();
+  // const initials = name.charAt(0).toUpperCase();
 
   return (
     <aside

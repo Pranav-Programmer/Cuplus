@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Loader2, Archive } from 'lucide-react';
+import { Search, Archive } from 'lucide-react';
 import CuplusLoader from '@/components/CuplusLoader';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
-import ProjectGrid from '@/components/ProjectGrid';
+import ProjectGrid from '@/components/projects/ProjectGrid';
 import { getArchivedProjects, unarchiveProject, removeProject } from '@/lib/projects';
 import { Project } from '@/components/editor/types';
 import Layout from "@/components/Layout";
@@ -66,11 +66,11 @@ export default function ArchivePage() {
 
   return (
   <Layout>
-    <div className="min-h-screen w-full bg-[#0B0E14] px-4 sm:px-8 py-8">
+    <div className="min-h-screen w-full bg-[#0B0E14] px-4 sm:px-8 py-8 overflow-y-auto no-scrollbar-mobile">
 
       {/* ── Page header ── */}
       <div className="flex items-center gap-3 mb-2 mt-10 md:mt-0">
-        <div className="w-9 h-9 rounded-xl bg-[#2e5bff]/15 border border-[#2e5bff]/20
+        <div className="w-9 h-9 rounded-xl bg-primary/15 border border-primary/20
           flex items-center justify-center">
           <Archive size={16} className="text-[#60A5FA]" />
         </div>
@@ -90,7 +90,7 @@ export default function ArchivePage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-[#151922] border border-white/10 rounded-2xl pl-10 pr-4 py-3
-              text-[#E2E8F0] text-sm outline-none focus:border-[#2e5bff]/50
+              text-[#E2E8F0] text-sm outline-none focus:border-primary/50
               placeholder-[#94A3B8]/60 transition-colors"
           />
         </div>

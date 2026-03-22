@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { MoreVertical, Edit2, Trash2, ExternalLink, Shield } from 'lucide-react';
 import { SanctumProject } from '@/lib/sanctum';
 
@@ -8,7 +9,6 @@ interface SanctumCardProps {
   project: SanctumProject;
   onEdit: (project: SanctumProject) => void;
   onDelete: (id: string, title: string) => void;
-  onOpen: (project: SanctumProject) => void;
 }
 
 function formatDate(ts: any): string {
@@ -23,16 +23,17 @@ function getExcerpt(html: string, maxLen = 110): string {
   return t.length > maxLen ? t.slice(0, maxLen) + '…' : t;
 }
 
-export default function SanctumCard({ project, onEdit, onDelete, onOpen }: SanctumCardProps) {
+export default function SanctumCard({ project, onEdit, onDelete }: SanctumCardProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const href = `/sanctum/${project.id}`;
 
   return (
     <div className="group relative bg-[#151922] border border-white/10 rounded-2xl overflow-hidden
       hover:border-violet-500/30 transition-all duration-300
       hover:shadow-[0_0_20px_-5px_rgba(139,92,246,0.2)] flex flex-col">
 
-      {/* Thumbnail */}
-      <button onClick={() => onOpen(project)} className="block text-left w-full">
+      {/* Thumbnail — links to detail page */}
+      <Link href={href} className="block">
         {project.thumbnailUrl ? (
           <div className="h-44 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -40,12 +41,12 @@ export default function SanctumCard({ project, onEdit, onDelete, onOpen }: Sanct
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
           </div>
         ) : (
-          <div className="h-44 bg-gradient-to-br from-[#1a1330] to-[#0B0E14]
+          <div className="h-44 bg-linear-to-br from-[#1a1330] to-[#0B0E14]
             flex items-center justify-center border-b border-white/5">
             <Shield size={36} className="text-violet-500/30" />
           </div>
         )}
-      </button>
+      </Link>
 
       {/* Body */}
       <div className="flex-1 p-4 flex flex-col gap-2">
@@ -56,12 +57,12 @@ export default function SanctumCard({ project, onEdit, onDelete, onOpen }: Sanct
           </span>
         )}
 
-        <button onClick={() => onOpen(project)} className="text-left">
+        <Link href={href}>
           <h3 className="font-bold text-[#E2E8F0] text-base leading-snug line-clamp-2
             hover:text-violet-300 transition-colors">
             {project.title}
           </h3>
-        </button>
+        </Link>
 
         <p className="text-sm text-[#94A3B8] line-clamp-2 leading-relaxed flex-1">
           {getExcerpt(project.content)}
@@ -87,15 +88,18 @@ export default function SanctumCard({ project, onEdit, onDelete, onOpen }: Sanct
                   border border-violet-500/20 rounded-xl shadow-2xl z-50 py-1 overflow-hidden">
 
                   {/* Open in new tab */}
-                  <button
-                    onClick={() => { setMenuOpen(false); onOpen(project); }}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#94A3B8]
+                  <Link
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 text-sm text-[#94A3B8]
                       hover:bg-white/5 hover:text-[#E2E8F0] transition-colors"
                   >
                     <ExternalLink size={13} />
                     <span className="hidden md:inline">Open in new tab</span>
                     <span className="md:hidden">Open</span>
-                  </button>
+                  </Link>
 
                   {/* Edit */}
                   <button
@@ -108,7 +112,7 @@ export default function SanctumCard({ project, onEdit, onDelete, onOpen }: Sanct
 
                   <div className="mx-3 my-1 border-t border-white/5" />
 
-                  {/* Delete (permanent) */}
+                  {/* Delete forever */}
                   <button
                     onClick={() => { setMenuOpen(false); onDelete(project.id, project.title); }}
                     className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400

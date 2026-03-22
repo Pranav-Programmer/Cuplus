@@ -43,7 +43,7 @@ export default function ThumbnailUpload({ value, onChange }: ThumbnailUploadProp
         <div className="relative rounded-xl overflow-hidden border border-white/10 h-40">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={value} alt="Thumbnail" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
           <div className="absolute bottom-2 right-2 flex gap-2">
             <button
               type="button"
@@ -73,14 +73,14 @@ export default function ThumbnailUpload({ value, onChange }: ThumbnailUploadProp
             flex flex-col items-center justify-center h-36 rounded-xl border-2 border-dashed
             cursor-pointer transition-all
             ${isDragging
-              ? 'border-[#2e5bff] bg-[#2e5bff]/10'
-              : 'border-white/10 hover:border-[#2e5bff]/50 hover:bg-white/5'
+              ? 'border-primary bg-primary/10'
+              : 'border-white/10 hover:border-primary/50 hover:bg-white/5'
             }
             ${loading ? 'pointer-events-none opacity-70' : ''}
           `}
         >
           {loading ? (
-            <Loader2 className="animate-spin text-[#2e5bff]" size={24} />
+            <Loader2 className="animate-spin text-primary" size={24} />
           ) : (
             <>
               <ImageIcon className="text-[#94A3B8] mb-2" size={28} />

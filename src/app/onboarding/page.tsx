@@ -33,7 +33,7 @@ const SLIDES = [
 // ── Mockup components — all colours via CSS vars ──────────────────────────────
 function ProjectMockup() {
   return (
-    <div className="w-full max-w-[480px] rounded-2xl shadow-2xl overflow-hidden"
+    <div className="w-full max-w-120 rounded-2xl shadow-2xl overflow-hidden"
       style={{ background: 'var(--surface)', border: '1px solid var(--border-strong)' }}>
       <div className="flex items-center gap-1 px-4 py-3"
         style={{ background: 'var(--surface-2)', borderBottom: '1px solid var(--border)' }}>
@@ -63,8 +63,8 @@ function ProjectMockup() {
             <div className="h-2 w-2/3 rounded-full" style={{ background: 'var(--border)' }} />
           </div>
         </div>
-        <div className="rounded-xl bg-gradient-to-br from-[#2e5bff]/10 to-[#7C3AED]/10 border border-[#2e5bff]/15 h-20 flex items-center justify-center">
-          <span className="material-icons text-[#2e5bff]/40 text-3xl">image</span>
+        <div className="rounded-xl bg-linear-to-br from-primary/10 to-[#7C3AED]/10 border border-primary/15 h-20 flex items-center justify-center">
+          <span className="material-icons text-primary/40 text-3xl">image</span>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@ function NotesMockup() {
     { color: '#8B5CF6', cat: 'Creative', lines: [0.6, 0.85, 0.7] },
   ];
   return (
-    <div className="w-full max-w-[480px] grid grid-cols-2 gap-3">
+    <div className="w-full max-w-120 grid grid-cols-2 gap-3">
       {notes.map(n => (
         <div key={n.cat} className="rounded-xl overflow-hidden shadow-lg"
           style={{ background: 'var(--surface)', border: '1px solid var(--border-strong)', borderTop: `3px solid ${n.color}` }}>
@@ -105,7 +105,7 @@ function TasksMockup() {
     { label: 'Push new feature build', priority: 'Low',    color: '#10B981', done: false, time: '5:00 PM' },
   ];
   return (
-    <div className="w-full max-w-[480px] rounded-2xl shadow-2xl"
+    <div className="w-full max-w-120 rounded-2xl shadow-2xl"
       style={{ background: 'var(--surface)', border: '1px solid var(--border-strong)' }}>
       <div className="px-4 pt-4 pb-3 flex justify-between items-center"
         style={{ borderBottom: '1px solid var(--border)' }}>
@@ -148,7 +148,7 @@ function TasksMockup() {
 
 function SanctumMockup() {
   return (
-    <div className="w-full max-w-[480px] space-y-3">
+    <div className="w-full max-w-120 space-y-3">
       <div className="rounded-2xl border border-violet-500/20 shadow-2xl overflow-hidden"
         style={{ background: 'var(--surface)' }}>
         <div className="px-5 py-4 flex items-center gap-3"
@@ -242,13 +242,13 @@ const OnboardingPage: React.FC = () => {
       style={{ background: 'var(--bg)', fontFamily: "'DM Sans','Inter',sans-serif", color: 'var(--text-main)' }}>
 
       {/* Ambient glows — decorative, intentionally keep accent colours */}
-      <div className="fixed top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full blur-[140px] pointer-events-none transition-all duration-700"
+      <div className="fixed top-[-20%] left-[-10%] w-150 h-150 rounded-full blur-[140px] pointer-events-none transition-all duration-700"
         style={{ background: `${s.accent}18` }} />
-      <div className="fixed bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none transition-all duration-700"
+      <div className="fixed bottom-[-10%] right-[-5%] w-125 h-125 rounded-full blur-[120px] pointer-events-none transition-all duration-700"
         style={{ background: `${s.accent}0d` }} />
 
       {/* Main container */}
-      <div className="relative w-full max-w-[1440px] h-full max-h-[900px] flex flex-col lg:flex-row overflow-hidden rounded-2xl shadow-2xl m-auto"
+      <div className="relative w-full max-w-360 h-full max-h-225 flex flex-col lg:flex-row overflow-hidden rounded-2xl shadow-2xl m-auto"
         style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
 
         {/* ── Left column ── */}

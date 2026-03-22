@@ -99,12 +99,12 @@ const AuthPage: React.FC = () => {
       style={{ background: 'var(--bg)', color: 'var(--text-main)', fontFamily: "'DM Sans','Inter',sans-serif" }}>
 
       {/* Ambient glows — accent colours, intentionally theme-neutral */}
-      <div className="fixed top-[-15%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[140px] pointer-events-none"
+      <div className="fixed top-[-15%] left-[-5%] w-125 h-125 rounded-full blur-[140px] pointer-events-none"
         style={{ background: 'rgba(46,91,255,0.1)' }} />
-      <div className="fixed bottom-[-15%] right-[-5%] w-[400px] h-[400px] rounded-full blur-[120px] pointer-events-none"
+      <div className="fixed bottom-[-15%] right-[-5%] w-100 h-100 rounded-full blur-[120px] pointer-events-none"
         style={{ background: 'rgba(124,58,237,0.07)' }} />
 
-      <main className="relative z-10 w-full max-w-[440px] px-5 py-8">
+      <main className="relative z-10 w-full max-w-110 px-5 py-8">
 
         {/* Logo */}
         <div className="flex items-center justify-center gap-2.5 mb-7">

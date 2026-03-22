@@ -88,7 +88,7 @@ export default function CategoryInput({
 
   return (
     <div ref={wrapRef} className="relative">
-      <div className={`flex items-center gap-2 bg-[#0B0E14] border rounded-lg px-3 py-2.5 transition-colors ${open ? 'border-[#2e5bff]' : 'border-white/10 hover:border-white/20'}`}>
+      <div className={`flex items-center gap-2 bg-[#0B0E14] border rounded-lg px-3 py-2.5 transition-colors ${open ? 'border-primary' : 'border-white/10 hover:border-white/20'}`}>
         <Tag size={13} className="text-[#94A3B8] shrink-0" />
         <input
           ref={inputRef}
@@ -128,7 +128,7 @@ export default function CategoryInput({
                 onKeyDown={(e) => handleSuggestionKeyDown(e, cat, idx)}
                 className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left text-[#94A3B8] hover:bg-white/5 hover:text-[#E2E8F0] focus:bg-white/5 focus:text-[#E2E8F0] focus:outline-none transition-colors"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2e5bff]/60 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0" />
                 {cat}
               </button>
             ))}
@@ -139,7 +139,7 @@ export default function CategoryInput({
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => selectCategory(inputValue.trim())}
                 onKeyDown={(e) => handleSuggestionKeyDown(e, inputValue.trim(), filtered.length)}
-                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left text-[#60A5FA] hover:bg-[#2e5bff]/10 focus:bg-[#2e5bff]/10 focus:outline-none transition-colors border-t border-white/5"
+                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left text-[#60A5FA] hover:bg-primary/10 focus:bg-primary/10 focus:outline-none transition-colors border-t border-white/5"
               >
                 <Plus size={13} className="shrink-0" />
                 Create &ldquo;{inputValue.trim()}&rdquo;

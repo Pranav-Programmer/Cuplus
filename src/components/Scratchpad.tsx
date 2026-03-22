@@ -121,7 +121,7 @@ const Scratchpad: React.FC = () => {
           <span className="text-[11px] font-medium" style={{ color: 'var(--text-faint)' }}>
             Quick thoughts, ideas, reminders…
           </span>
-          <div className="ml-auto flex items-center gap-1.5 text-[10px]" style={{ color: 'var(--text-faint)' }}>
+          <div className="ml-auto hidden lg:flex items-center gap-1.5 text-[10px]" style={{ color: 'var(--text-faint)' }}>
             <kbd className="px-1.5 py-0.5 rounded text-[9px] font-mono"
               style={{ background: 'var(--border)', border: '1px solid var(--border-strong)' }}>
               Ctrl+S
@@ -138,8 +138,8 @@ const Scratchpad: React.FC = () => {
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           placeholder="Start writing…"
-          rows={5}
-          className="w-full resize-none outline-none p-4 text-sm leading-relaxed"
+          rows={10}
+          className="w-full resize-none outline-none p-4 text-sm leading-relaxed -mb-2"
           style={{
             background: 'transparent',
             color:      'var(--text-main)',

@@ -2,15 +2,17 @@
 
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
-import { Project } from './editor/types';
-import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { Project } from '../editor/types';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import CuplusLoader from '@/components/CuplusLoader';
 
 interface ProjectGridProps {
   projects: Project[];
   loading?: boolean;
   onEdit?: (project: Project) => void;
-  onDelete?: (id: string) => void;
+  onRemove?: (id: string) => void;
   onArchive?: (id: string) => void;
+  onUnarchive?: (id: string) => void;
   searchQuery?: string;
 }
 
@@ -18,8 +20,9 @@ export default function ProjectGrid({
   projects,
   loading,
   onEdit,
-  onDelete,
+  onRemove,
   onArchive,
+  onUnarchive,
   searchQuery = '',
 }: ProjectGridProps) {
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -86,11 +89,7 @@ export default function ProjectGrid({
   }, [projects, activeCategory, searchQuery]);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-24 text-[#94A3B8]">
-        <Loader2 className="animate-spin mr-2" size={20} /> Loading projects…
-      </div>
-    );
+    return <CuplusLoader fullScreen label="Loading Projects…" />;
   }
 
   return (
@@ -123,9 +122,9 @@ export default function ProjectGrid({
             {/* Left scroll button */}
             <button
               onClick={() => scrollBy('left')}
-              // disabled={!canScrollLeft}
+              disabled={!canScrollLeft}
               aria-label="Scroll categories left"
-              className="w-8 h-8 flex-shrink-0 flex items-center justify-center
+              className="w-8 h-8 shrink-0 flex items-center justify-center
                 rounded-lg border border-white/10 bg-[#151922]
                 text-[#94A3B8] hover:text-[#E2E8F0] hover:bg-white/10
                 disabled:opacity-0 disabled:pointer-events-none
@@ -146,10 +145,10 @@ export default function ProjectGrid({
                     onClick={() => setActiveCategory(cat)}
                     className={`
                       px-4 py-1.5 rounded-full text-sm font-medium
-                      whitespace-nowrap flex-shrink-0
+                      whitespace-nowrap shrink-0
                       transition-all duration-200
                       ${activeCategory === cat
-                        ? 'bg-[#2e5bff] text-white shadow-[0_0_12px_-2px_rgba(46,91,255,0.5)]'
+                        ? 'bg-primary text-white shadow-[0_0_12px_-2px_rgba(46,91,255,0.5)]'
                         : 'text-[#94A3B8] hover:text-[#E2E8F0] hover:bg-white/10 border border-white/10'
                       }
                     `}
@@ -163,9 +162,9 @@ export default function ProjectGrid({
             {/* Right scroll button */}
             <button
               onClick={() => scrollBy('right')}
-              // disabled={!canScrollRight}
+              disabled={!canScrollRight}
               aria-label="Scroll categories right"
-              className="w-8 h-8 flex-shrink-0 flex items-center justify-center
+              className="w-8 h-8 shrink-0 flex items-center justify-center
                 rounded-lg border border-white/10 bg-[#151922]
                 text-[#94A3B8] hover:text-[#E2E8F0] hover:bg-white/10
                 disabled:opacity-0 disabled:pointer-events-none
@@ -197,8 +196,9 @@ export default function ProjectGrid({
               key={project.id}
               project={project}
               onEdit={onEdit}
-              onDelete={onDelete}
+              onRemove={onRemove}
               onArchive={onArchive}
+              onUnarchive={onUnarchive}
             />
           ))}
         </div>

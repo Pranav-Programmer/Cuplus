@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Loader2 } from 'lucide-react';
+import { Search } from 'lucide-react';
 import CuplusLoader from '@/components/CuplusLoader';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
-import ProjectCreator from '@/components/ProjectCreator';
-import ProjectGrid from '@/components/ProjectGrid';
-import ProjectsHero from '@/components/ProjectsHero';
+import ProjectCreator from '@/components/projects/ProjectCreator';
+import ProjectGrid from '@/components/projects/ProjectGrid';
+import ProjectsHero from '@/components/projects/ProjectsHero';
 import { getProjects, removeProject, archiveProject } from '@/lib/projects';
 import { Project } from '@/components/editor/types';
 import Layout from "@/components/Layout";
@@ -54,10 +54,10 @@ export default function ProjectsPage() {
     setCreatorOpen(true);
   };
 
-  const handleRemove = async (id: string) => {
-    await removeProject(id);
-    setProjects((prev) => prev.filter((p) => p.id !== id));
-  };
+  // const handleRemove = async (id: string) => {
+  //   await removeProject(id);
+  //   setProjects((prev) => prev.filter((p) => p.id !== id));
+  // };
 
   //Delete confirmation modal (optional enhancement)
     const openDeleteModal = (id: string) => {
@@ -104,7 +104,7 @@ export default function ProjectsPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen w-full bg-[#0B0E14] px-4 sm:px-8 py-8 overflow-y-auto">
+      <div className="min-h-screen w-full bg-[#0B0E14] px-4 sm:px-8 py-8 overflow-y-auto no-scrollbar-mobile">
 
         {/* Hero banner with Create button */}
         <ProjectsHero onCreateNew={() => { setEditingProject(null); setCreatorOpen(true); }} />
@@ -119,7 +119,7 @@ export default function ProjectsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#151922] border border-white/10 rounded-2xl pl-10 pr-4 py-3
-                text-[#E2E8F0] text-sm outline-none focus:border-[#2e5bff]/50 placeholder-[#94A3B8]/60
+                text-[#E2E8F0] text-sm outline-none focus:border-primary/50 placeholder-[#94A3B8]/60
                 transition-colors"
             />
           </div>

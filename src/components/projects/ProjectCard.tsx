@@ -5,7 +5,7 @@ import Link from 'next/link';
 import {
   MoreVertical, Edit2, Trash2, Archive, ExternalLink, ArchiveRestore,
 } from 'lucide-react';
-import { Project } from './editor/types';
+import { Project } from '../editor/types';
 
 interface ProjectCardProps {
   project: Project;
@@ -49,7 +49,7 @@ export default function ProjectCard({
   return (
     <div
       className="group relative bg-[#151922] border border-white/10 rounded-2xl overflow-hidden
-        hover:border-[#2e5bff]/40 transition-all duration-300
+        hover:border-primary/40 transition-all duration-300
         hover:shadow-[0_0_20px_-5px_rgba(46,91,255,0.25)] flex flex-col"
     >
       {/* ── Thumbnail ── */}
@@ -64,7 +64,7 @@ export default function ProjectCard({
             />
           </div>
         ) : (
-          <div className="h-44 bg-gradient-to-br from-[#1e2330] to-[#0B0E14] flex items-center
+          <div className="h-44 bg-linear-to-br from-[#1e2330] to-[#0B0E14] flex items-center
             justify-center border-b border-white/5">
             <span className="text-5xl opacity-20 select-none">📄</span>
           </div>
@@ -75,7 +75,7 @@ export default function ProjectCard({
       <div className="flex-1 p-4 flex flex-col gap-2">
         {project.category && (
           <span className="inline-flex w-fit px-2.5 py-0.5 rounded-full text-xs font-medium
-            bg-[#2e5bff]/15 text-[#60A5FA] border border-[#2e5bff]/20">
+            bg-primary/15 text-[#60A5FA] border border-primary/20">
             {project.category}
           </span>
         )}

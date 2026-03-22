@@ -63,7 +63,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
 
       {count !== undefined && (
         <span
-          className="shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center"
+          className="shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-5 text-center"
           style={{
             background: active ? 'rgba(46,91,255,0.2)' : 'var(--border-strong)',
             color:      active ? '#2e5bff'             : 'var(--text-faint)',

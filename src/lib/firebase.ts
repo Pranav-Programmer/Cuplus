@@ -4,13 +4,13 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCspvUkgDjmC4yuF6IZOMPNdc_aF8jzL8M",
-  authDomain: "cuplus-dev.firebaseapp.com",
-  projectId: "cuplus-dev",
-  storageBucket: "cuplus-dev.firebasestorage.app",
-  messagingSenderId: "185281260970",
-  appId: "1:185281260970:web:b34b1ccc733cfe085c8fd3",
-  measurementId: "G-M4GP8VGG03",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // Avoid multi-init

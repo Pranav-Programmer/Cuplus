@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Loader2, Trash2, RotateCcw, Search, Trash } from 'lucide-react';
+import { Trash2, RotateCcw, Search, Trash } from 'lucide-react';
 import CuplusLoader from '@/components/CuplusLoader';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth, db } from '@/lib/firebase';
@@ -186,7 +186,7 @@ export default function RecycleBinPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-[#0B0E14] px-4 sm:px-8 py-8 w-full">
+      <div className="min-h-screen bg-[#0B0E14] px-4 sm:px-8 py-8 w-full overflow-y-auto no-scrollbar-mobile">
 
         {/* ── Page header ── */}
         <div className="flex items-center gap-3 mb-2 mt-10 md:mt-0">
@@ -210,7 +210,7 @@ export default function RecycleBinPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#151922] border border-white/10 rounded-2xl pl-10 pr-4 py-3
-                text-[#E2E8F0] text-sm outline-none focus:border-[#2e5bff]/50
+                text-[#E2E8F0] text-sm outline-none focus:border-primary/50
                 placeholder-[#94A3B8]/60 transition-colors"
             />
           </div>
@@ -226,7 +226,7 @@ export default function RecycleBinPage() {
                 className={`
                   px-6 py-2 rounded-full text-sm font-medium capitalize transition-all duration-200
                   ${activeTab === tab
-                    ? 'bg-[#2e5bff] text-white shadow-[0_0_12px_-2px_rgba(46,91,255,0.5)]'
+                    ? 'bg-primary text-white shadow-[0_0_12px_-2px_rgba(46,91,255,0.5)]'
                     : 'text-[#94A3B8] hover:text-[#E2E8F0]'}
                 `}
               >
@@ -276,7 +276,7 @@ export default function RecycleBinPage() {
                     />
                   </div>
                 ) : (
-                  <div className="h-40 bg-gradient-to-br from-[#1e2330] to-[#0B0E14]
+                  <div className="h-40 bg-linear-to-br from-[#1e2330] to-[#0B0E14]
                     flex items-center justify-center border-b border-white/5 opacity-60">
                     <span className="text-4xl opacity-20">📄</span>
                   </div>
@@ -286,7 +286,7 @@ export default function RecycleBinPage() {
                 <div className="p-4 flex flex-col gap-2 flex-1">
                   {project.category && (
                     <span className="inline-flex w-fit px-2.5 py-0.5 rounded-full text-xs
-                      font-medium bg-[#2e5bff]/15 text-[#60A5FA] border border-[#2e5bff]/20">
+                      font-medium bg-primary/15 text-[#60A5FA] border border-primary/20">
                       {project.category}
                     </span>
                   )}

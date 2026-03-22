@@ -40,7 +40,7 @@ export default function UserProfile({ userId, displayName, email, photoURL }: Pr
       <div className="flex items-center gap-3">
         {/* Avatar — clickable → profile */}
         <button onClick={() => router.push('/profile')}
-          className="shrink-0 w-9 h-9 rounded-xl overflow-hidden transition-all hover:ring-2 hover:ring-[#2e5bff]"
+          className="shrink-0 w-9 h-9 rounded-xl overflow-hidden transition-all hover:ring-2 hover:ring-primary"
           style={{ boxShadow: '0 0 12px -4px rgba(46,91,255,0.4)' }}>
           {photoURL
             // eslint-disable-next-line @next/next/no-img-element

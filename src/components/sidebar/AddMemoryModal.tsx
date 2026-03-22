@@ -28,8 +28,8 @@ export default function AddMemoryModal({ isOpen, onClose, onSave }: Props) {
   };
 
   return createPortal (
-     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4" >
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+     <div className="fixed inset-0 z-9999 flex items-center justify-center p-4" >
+    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4"
       style={{ background: 'var(--overlay-bg)', backdropFilter: 'blur(6px)' }}>
       <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl"
         style={{ background: 'var(--surface)', border: '1px solid var(--border-strong)' }}>

@@ -3,19 +3,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { X, Loader2, Save, AlertCircle } from 'lucide-react';
-import ThumbnailUpload from './ThumbnailUpload';
-import CategoryInput from './CategoryInput';
-import { ProjectInput } from './editor/types';
+import CuplusLoader from '@/components/CuplusLoader';
+import ThumbnailUpload from '../ThumbnailUpload';
+import CategoryInput from '../CategoryInput';
+import { ProjectInput } from '../editor/types';
 import { createProject, updateProject, getUserCategories } from '@/lib/projects';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 
 // Dynamic import – contenteditable is browser-only
-const RichTextEditor = dynamic(() => import('./editor/RichTextEditor'), {
+const RichTextEditor = dynamic(() => import('../editor/RichTextEditor'), {
   ssr: false,
   loading: () => (
-    <div className="flex-1 flex items-center justify-center min-h-[400px] text-[#94A3B8]">
-      <Loader2 className="animate-spin mr-2" size={20} /> Loading editor…
-    </div>
+    <CuplusLoader />
   ),
 });
 
@@ -43,26 +42,43 @@ export default function ProjectCreator({
 }: ProjectCreatorProps) {
   const [title, setTitle]             = useState('');
   const [category, setCategory]       = useState('');
-  const [content, setContent]         = useState('');
+  const [content, setContent]         = useState('');   // tracks current HTML for saving
   const [thumbnailUrl, setThumbnail]  = useState('');
   const [saving, setSaving]           = useState(false);
   const [error, setError]             = useState('');
   const [lastSaved, setLastSaved]     = useState<Date | null>(null);
-  // Categories the user has previously used – loaded from Firestore
   const [categoryHistory, setCategoryHistory] = useState<string[]>([]);
 
-  // ── Populate fields ────────────────────────────────────────────────────────
+  // ── Stable seed values for the editor ─────────────────────────────────────
+  // CRITICAL: These are passed as `initialContent` + `key` to RichTextEditor.
+  // They must ONLY change when a genuinely different project is opened —
+  // never on every keystroke (which would cause reverse-writing via innerHTML reset).
+  //
+  // `editorKey`            → changing it unmounts + remounts the editor cleanly
+  // `editorInitialContent` → the HTML that the freshly mounted editor seeds from
+  //
+  // `content` state is updated by onChange for saving purposes only and is
+  // NEVER fed back into `initialContent` — that would close the feedback loop.
+  const [editorKey, setEditorKey]                       = useState(0);
+  const [editorInitialContent, setEditorInitialContent] = useState('');
+
+  // ── Populate fields when opening a project ─────────────────────────────────
   useEffect(() => {
     if (editProject) {
       setTitle(editProject.title);
       setCategory(editProject.category);
       setContent(editProject.content);
       setThumbnail(editProject.thumbnailUrl ?? '');
+      // Bump the key so the editor unmounts/remounts with fresh content
+      setEditorInitialContent(editProject.content);
+      setEditorKey((k) => k + 1);
     } else {
       setTitle('');
       setCategory('');
       setContent('');
       setThumbnail('');
+      setEditorInitialContent('');
+      setEditorKey((k) => k + 1);
     }
     setError('');
     setLastSaved(null);
@@ -136,7 +152,7 @@ export default function ProjectCreator({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[500] flex flex-col bg-[#0B0E14]">
+    <div className="fixed inset-0 z-500 flex flex-col bg-[#0B0E14]">
 
       {/* ── Top bar ── */}
       <header className="flex items-center gap-3 px-4 sm:px-6 py-3 bg-[#151922]
@@ -169,7 +185,7 @@ export default function ProjectCreator({
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 bg-[#2e5bff] hover:bg-[#1a40cc]
+            className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark
               disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold
               rounded-lg transition-colors shadow-[0_0_15px_-3px_rgba(46,91,255,0.4)]"
           >
@@ -215,23 +231,34 @@ export default function ProjectCreator({
           </div>
 
           {/* Shortcuts hint */}
-          <div className="rounded-xl bg-[#2e5bff]/10 border border-[#2e5bff]/20 p-3">
+          <div className="rounded-xl bg-primary/10 border border-primary/20 p-3">
             <p className="text-xs text-[#60A5FA] font-semibold mb-1.5">Shortcuts</p>
             <ul className="text-xs text-[#94A3B8] space-y-1">
               <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+S</kbd> Save</li>
+              <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+V</kbd> Paste</li>
+              <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+Shift+V</kbd>Paste as Plain Text</li>
+              <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+Q</kbd>Cycle Block Format</li>
               <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+B</kbd> Bold</li>
               <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+I</kbd> Italic</li>
               <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+U</kbd> Underline</li>
               <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Esc</kbd> Close</li>
+              <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+Z</kbd>Undo</li>
+              <li><kbd className="bg-white/10 px-1 rounded text-[10px]">Ctrl+Y</kbd>Redo</li>
             </ul>
           </div>
         </aside>
 
         {/* ── Right editor area ── */}
-        <main className="flex-1 overflow-y-auto flex flex-col">
+        {/*
+         * CRITICAL: overflow-hidden here so the outer <main> does NOT scroll.
+         * Scrolling happens ONLY inside RichTextEditor's content div.
+         * This is what keeps the toolbar pinned at the top.
+         */}
+        <main className="flex-1 min-w-0 flex flex-col overflow-hidden">
 
           {/* Mobile meta row */}
-          <div className="flex items-center gap-2 px-4 py-2 border-b border-white/10 lg:hidden">
+          <div className="flex items-center gap-2 px-4 py-2 border-b border-white/10
+            lg:hidden shrink-0">
             <div className="flex-1">
               <CategoryInput
                 value={category}
@@ -242,7 +269,7 @@ export default function ProjectCreator({
             </div>
             <label
               className="flex items-center justify-center w-9 h-9 rounded-lg border border-white/10
-                bg-[#1e2330] cursor-pointer hover:border-[#2e5bff]/50 transition-colors"
+                bg-[#1e2330] cursor-pointer hover:border-primary/50 transition-colors"
               title="Upload thumbnail"
             >
               <span className="text-lg">🖼</span>
@@ -263,20 +290,29 @@ export default function ProjectCreator({
           {/* Error banner */}
           {error && (
             <div className="mx-4 mt-3 flex items-center gap-2 text-sm text-red-400
-              bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2.5">
+              bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2.5 shrink-0">
               <AlertCircle size={14} />
               {error}
             </div>
           )}
 
-          {/* Editor */}
-          <div className="flex-1 p-4 sm:p-8 max-w-4xl w-full mx-auto">
-            <RichTextEditor
-              initialContent={content}
-              onChange={setContent}
-              placeholder="Start writing your project document…"
-              // minHeight="500px"
-            />
+          {/*
+           * Editor wrapper:
+           *   flex-1 min-h-0  → fills remaining height, allows shrinking
+           *   overflow-hidden → do NOT scroll here; editor scrolls inside
+           *   flex flex-col   → so RichTextEditor fills with flex-1
+           */}
+          <div className="flex-1 min-h-0 flex flex-col p-4 sm:p-8 overflow-hidden">
+            <div className="flex-1 min-h-0 flex flex-col max-w-4xl w-full mx-auto">
+              <RichTextEditor
+                key={editorKey}
+                initialContent={editorInitialContent}
+                onChange={setContent}
+                placeholder="Start writing your project document…"
+                minHeight="0px"
+                className="flex-1 min-h-0"
+              />
+            </div>
           </div>
         </main>
       </div>

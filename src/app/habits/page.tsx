@@ -195,7 +195,7 @@ function HabitModal({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+      className="fixed inset-0 z-9999 flex items-center justify-center p-4"
       style={{ background: "var(--overlay-bg)", backdropFilter: "blur(8px)" }}
     >
       <div
@@ -474,8 +474,8 @@ function HabitCard({
   });
 
   const streak = (() => {
-    let s = 0,
-      dt = new Date();
+    let s = 0
+    const  dt = new Date();
     for (let i = 0; i < 30; i++) {
       const dStr = dt.toISOString().split("T")[0];
       const l = habLogs.find((x) => x.date === dStr);
@@ -648,7 +648,7 @@ function HabitCard({
               className="text-sm font-semibold mb-2"
               style={{ color: "var(--text-muted)" }}
             >
-              Today's Progress
+              Today`&apos;s Progress
             </p>
             <button
               onClick={handleTap}
@@ -806,7 +806,7 @@ function SummaryHero({
       <div className="relative z-10 flex items-center justify-between flex-wrap gap-6">
         <div>
           <p className="text-sm mb-1" style={{ color: "var(--text-muted)" }}>
-            Today's Overview
+            Today`&apos;s Overview
           </p>
           <h2
             className="text-4xl font-black mb-1"
@@ -1064,7 +1064,7 @@ export default function HabitsPage() {
 
       {confirmDel && (
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+          className="fixed inset-0 z-9999 flex items-center justify-center p-4"
           style={{
             background: "var(--overlay-bg)",
             backdropFilter: "blur(6px)",
@@ -1096,7 +1096,7 @@ export default function HabitsPage() {
               className="font-bold mb-2"
               style={{ color: "var(--text-main)" }}
             >
-              Delete "{confirmDel.name}"?
+              Delete &quot;{confirmDel.name}&quot;?
             </h3>
             <p className="text-sm mb-5" style={{ color: "var(--text-faint)" }}>
               This will remove the habit definition. Your past logs are kept.

@@ -4,8 +4,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { X, Loader2, Save, AlertCircle } from 'lucide-react';
 import CuplusLoader from '@/components/CuplusLoader';
-import ThumbnailUpload from './ThumbnailUpload';
-import CategoryInput from './CategoryInput';
+import ThumbnailUpload from '../ThumbnailUpload';
+import CategoryInput from '../CategoryInput';
 import {
   createSanctumProject,
   updateSanctumProject,
@@ -13,7 +13,7 @@ import {
   SanctumSpace,
 } from '@/lib/sanctum';
 
-const RichTextEditor = dynamic(() => import('./editor/RichTextEditor'), {
+const RichTextEditor = dynamic(() => import('../editor/RichTextEditor'), {
   ssr: false,
   loading: () => (
     <CuplusLoader />
@@ -126,7 +126,7 @@ export default function SanctumCreator({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[500] flex flex-col bg-[#0B0E14]">
+    <div className="fixed inset-0 z-500 flex flex-col bg-[#0B0E14]">
 
       {/* ── Top bar ── */}
       <header className="flex items-center gap-3 px-4 sm:px-6 py-3 bg-[#151922]
@@ -165,7 +165,7 @@ export default function SanctumCreator({
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 bg-[#2e5bff] hover:bg-[#1a40cc]
+            className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark
               disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold
               rounded-lg transition-colors shadow-[0_0_15px_-3px_rgba(46,91,255,0.4)]"
           >
@@ -220,7 +220,7 @@ export default function SanctumCreator({
         <main className="flex-1 min-w-0 flex flex-col overflow-hidden">
           {error && (
             <div className="mx-4 mt-3 flex items-center gap-2 text-sm text-red-400
-              bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2.5 flex-shrink-0">
+              bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2.5 shrink-0">
               <AlertCircle size={14} />
               {error}
             </div>

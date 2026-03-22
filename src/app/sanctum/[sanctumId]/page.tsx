@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { createPortal } from 'react-dom';
 import dynamic from 'next/dynamic';
 import {
-  ArrowLeft, Save, Edit2, Loader2, Calendar,
+  Save, Edit2, Loader2, Calendar,
   BookOpen, Tag, Trash2, Shield, Eye, EyeOff, AlertCircle,
 } from 'lucide-react';
 import CuplusLoader from '@/components/CuplusLoader';
@@ -18,7 +17,6 @@ import {
   getSanctumProjects,
   updateSanctumProject,
   deleteSanctumProject,
-  hashPassword,
   verifyPassword,
   SanctumSpace,
   SanctumProject,
@@ -438,7 +436,7 @@ export default function SanctumProjectPage() {
                 onChange={setContent}
                 placeholder="Write your encrypted content…"
                 minHeight="0px"
-                className="h-[calc(100vh-280px)] min-h-[500px]"
+                className="h-[calc(100vh-280px)] min-h-125"
               />
             ) : (
               <div

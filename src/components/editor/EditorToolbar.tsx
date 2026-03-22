@@ -31,7 +31,7 @@ function ToolbarBtn({ onClick, title, active, children }: ToolbarBtnProps) {
       onMouseDown={(e) => { e.preventDefault(); onClick(); }}
       title={title}
       className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors shrink-0 ${
-        active ? 'bg-[#2e5bff]/20 text-[#60A5FA]' : 'hover:bg-black/5'
+        active ? 'bg-primary/20 text-[#60A5FA]' : 'hover:bg-black/5'
       }`}
       style={active ? undefined : { color: 'var(--text-muted)' }}
       onMouseEnter={e => { if (!active) (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-main)'; }}

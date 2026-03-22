@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
-import NoteCreator from "@/components/NoteCreator";
-import NoteGrid from "@/components/NoteGrid";
+import NoteCreator from "@/components/Note/NoteCreator";
+import NoteGrid from "@/components/Note/NoteGrid";
 import CategorySelector from "@/components/CategorySelector";
 import { db, auth } from "@/lib/firebase";
 import {
@@ -109,7 +109,7 @@ const PageHeader = ({
       <p className="text-xs" style={{ color: "var(--text-faint)" }}>
         {noteCount} note{noteCount !== 1 ? "s" : ""}
         {selectedCategory && <span> · {selectedCategory}</span>}
-        {searchQuery && <span> · "{searchQuery}"</span>}
+        {searchQuery && <span> · &quot;{searchQuery}&quot;</span>}
       </p>
     </div>
 
@@ -245,7 +245,7 @@ const NotesPage: React.FC = () => {
   return (
     <Layout>
       {/* ══ DESKTOP (md+) ══ */}
-      <div className="hidden md:flex flex-1 relative w-full max-w-[1400px] mx-auto h-full overflow-hidden">
+      <div className="hidden md:flex flex-1 relative w-full max-w-350 mx-auto h-full overflow-hidden">
         {/* Left: header + creator/grid */}
         <div
           className="w-full flex flex-col overflow-hidden"

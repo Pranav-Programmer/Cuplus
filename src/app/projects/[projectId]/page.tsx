@@ -39,6 +39,7 @@ export default function ProjectPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [isArchived, setIsArchived] = useState(false);
 
   // ── Load project ─────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -49,6 +50,7 @@ export default function ProjectPage() {
       if (!p) { setError('Project not found.'); setLoading(false); return; }
       setProject(p);
       setContent(p.content ?? '');
+      setIsArchived(!!p.archived);
       setLoading(false);
     })();
   }, [projectId]);
@@ -98,8 +100,11 @@ export default function ProjectPage() {
     return (
       <div className="min-h-screen bg-[#0B0E14] flex flex-col items-center justify-center gap-4">
         <p className="text-red-400">{error || 'Project not found.'}</p>
-        <Link href="/projects" className="text-sm text-[#60A5FA] hover:underline">
-          ← Back to Projects
+        <Link
+          href={isArchived ? "/archive" : "/projects"}
+          className="flex items-center gap-1.5 text-sm text-[#94A3B8] hover:text-[#E2E8F0] transition-colors"
+        >
+          <ArrowLeft size={16} /> {isArchived ? "Archive" : "Projects"}
         </Link>
       </div>
     );
@@ -111,12 +116,12 @@ export default function ProjectPage() {
       {/* ── Header ── */}
       <header className="sticky top-0 z-30 bg-[#151922]/95 backdrop-blur border-b border-white/10 px-4 sm:px-8 py-4">
         <div className="max-w-5xl mx-auto flex items-center gap-3">
-          <Link
-            href="/projects"
-            className="flex items-center gap-1.5 text-sm text-[#94A3B8] hover:text-[#E2E8F0] transition-colors"
-          >
-            <ArrowLeft size={16} /> Projects
-          </Link>
+           <Link
+          href={isArchived ? "/archive" : "/projects"}
+          className="flex items-center gap-1.5 text-sm text-[#94A3B8] hover:text-[#E2E8F0] transition-colors"
+        >
+          <ArrowLeft size={16} /> {isArchived ? "Archive" : "Projects"}
+        </Link>
 
           <span className="text-white/20">/</span>
 
@@ -143,7 +148,7 @@ export default function ProjectPage() {
                   onClick={handleSave}
                   disabled={saving}
                   className="flex items-center gap-1.5 px-4 py-1.5 text-sm font-semibold text-white
-                    bg-[#2e5bff] hover:bg-[#1a40cc] rounded-lg transition-colors
+                    bg-primary hover:bg-primary-dark rounded-lg transition-colors
                     disabled:opacity-60 disabled:cursor-not-allowed
                     shadow-[0_0_15px_-3px_rgba(46,91,255,0.4)]"
                 >
@@ -202,7 +207,7 @@ export default function ProjectPage() {
               onChange={setContent}
               placeholder="Write your project content…"
               minHeight="0px"
-              className="h-[calc(100vh-280px)] min-h-[500px]"
+              className="h-[calc(100vh-280px)] min-h-125"
             />
           ) : (
             <div

@@ -89,7 +89,7 @@ const HomePage: React.FC = () => {
     </aside>
 
     {/* Mobile bottom fade */}
-    <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-background-dark to-transparent pointer-events-none lg:hidden" />
+    <div className="absolute bottom-0 left-0 right-0 h-12 bg-linear-to-t from-background-dark to-transparent pointer-events-none lg:hidden" />
   </Layout>
 );
 };

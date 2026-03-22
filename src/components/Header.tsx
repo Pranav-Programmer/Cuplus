@@ -86,8 +86,8 @@ const Header: React.FC = () => {
     { key: 'deepWork',  icon: '🧠', done: habits.deepWork  >= 1    },
     { key: 'exercise',  icon: '🏃', done: habits.exercise  >= 1    },
   ];
-  const completedCount = habitDots.filter(h => h.done).length;
-  const progressPct    = (completedCount / habitDots.length) * 100;
+  // const completedCount = habitDots.filter(h => h.done).length;
+  // const progressPct    = (completedCount / habitDots.length) * 100;
 
   return (
     <header className="mb-10 mt-14 sm:mt-0">
@@ -113,7 +113,6 @@ const Header: React.FC = () => {
                 boxShadow:  '0 0 16px -4px rgba(46,91,255,0.4)',
               }}>
               {avatarUrl
-                // eslint-disable-next-line @next/next/no-img-element
                 ? <Image src={avatarUrl} alt={userName} width={100} height={100} className="w-full h-full object-cover" />
                 : <span className="text-white font-bold text-base">{userName.charAt(0).toUpperCase()}</span>
               }

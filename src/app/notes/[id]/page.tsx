@@ -111,7 +111,7 @@ const NoteDetailPage: React.FC = () => {
   range.collapse(false);
   sel?.removeAllRanges();
   sel?.addRange(range);
-}, [isEditing]);
+}, [isEditing, note]);
 
   const saveEdit = async () => {
   if (!contentRef.current || !note) return;
@@ -203,7 +203,7 @@ const NoteDetailPage: React.FC = () => {
 
   // ── Colour panel (portal) ─────────────────────────────────────────────────
   const ColorPanel = () => createPortal(
-    <div className="fixed bottom-0 left-0 right-0 z-[9999] p-4 space-y-4"
+    <div className="fixed bottom-0 left-0 right-0 z-9999 p-4 space-y-4"
       style={{ background: 'var(--surface)', borderTop: '1px solid var(--border)', boxShadow: '0 -4px 24px rgba(0,0,0,0.15)' }}>
       <div className="max-w-3xl mx-auto space-y-3">
 

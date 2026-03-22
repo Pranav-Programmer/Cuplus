@@ -52,7 +52,7 @@ export default function CodeBlockModal({ isOpen, onClose, onInsert }: CodeBlockM
             placeholder="Paste your code here…"
             className={
               'w-full bg-[#0B0E14] border border-white/10 rounded-lg px-3 py-2.5 text-[#E2E8F0] ' +
-              'text-sm outline-none focus:border-[#2e5bff] placeholder-[#94A3B8] transition-colors ' +
+              'text-sm outline-none focus:border-primary placeholder-[#94A3B8] transition-colors ' +
               'resize-y font-mono text-xs leading-relaxed'
             }
           />
