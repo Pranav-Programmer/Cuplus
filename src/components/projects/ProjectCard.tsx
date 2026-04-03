@@ -99,8 +99,8 @@ export default function ProjectCard({
           <div className="relative" onClick={stopProp}>
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="p-1 rounded-lg text-[#94A3B8] hover:text-[#E2E8F0] hover:bg-white/10
-                transition-colors opacity-0 group-hover:opacity-100"
+              className="p-1 rounded-lg text-[#E2E8F0] bg-white/10
+                transition-colors opacity-100 lg:opacity-0 group-hover:opacity-100"
             >
               <MoreVertical size={15} />
             </button>

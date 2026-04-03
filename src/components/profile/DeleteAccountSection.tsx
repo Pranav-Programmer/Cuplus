@@ -14,40 +14,70 @@ export default function DeleteAccountSection() {
   const [error,    setError]    = useState('');
 
   const deleteAllUserData = async (uid: string) => {
-    for (const col of COLLECTIONS) {
-      const q = query(collection(db, col), where('userId','==',uid));
-      const snap = await getDocs(q);
-      if (!snap.empty) {
-        const batch = writeBatch(db);
-        snap.docs.forEach(d => batch.delete(d.ref));
-        await batch.commit();
-      }
+  const COLLECTIONS = ['notes','tasks','projects','sanctumProjects','memories','habitLogs','habits','scratchpads'];
+
+  for (const col of COLLECTIONS) {
+    const q = query(collection(db, col), where('userId','==',uid));
+    const snap = await getDocs(q);
+    
+    if (!snap.empty) {
+      const batch = writeBatch(db);
+      snap.docs.forEach(doc => batch.delete(doc.ref));
+      await batch.commit();
     }
-  };
+  }
+};
 
   const handleDelete = async () => {
-    const user = auth.currentUser;
-    if (!user) return;
-    setStep('deleting'); setError('');
-    try {
-      // Try to reauthenticate
-      const providers = user.providerData.map(p => p.providerId);
-      if (providers.includes('google.com')) {
-        await reauthenticateWithPopup(user, new GoogleAuthProvider());
-      } else if (providers.includes('password') && password) {
-        const cred = EmailAuthProvider.credential(user.email!, password);
-        await reauthenticateWithCredential(user, cred);
-      }
-      await deleteAllUserData(user.uid);
-      await deleteUser(user);
-      router.push('/onboarding');
-    } catch (e: any) {
-      setError(e.code === 'auth/requires-recent-login'
-        ? 'Please sign in again before deleting your account.'
-        : e.message);
-      setStep('confirm');
+  const user = auth.currentUser;
+  if (!user) return;
+
+  setStep('deleting');
+  setError('');
+
+  try {
+    // ── Re-authenticate first (required by Firebase for deleteUser) ──
+    const providers = user.providerData.map((p) => p.providerId);
+
+    if (providers.includes('google.com')) {
+      await reauthenticateWithPopup(user, new GoogleAuthProvider());
+    } 
+    else if (providers.includes('password') && password) {
+      const credential = EmailAuthProvider.credential(user.email!, password);
+      await reauthenticateWithCredential(user, credential);
+    } 
+    else {
+      throw new Error("Please enter your password to confirm account deletion.");
     }
-  };
+
+    // Small delay to ensure the ID token is refreshed (fixes "insufficient permissions")
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Delete all user data from Firestore
+    await deleteAllUserData(user.uid);
+
+    // Finally delete the Firebase Auth user
+    await deleteUser(user);
+
+    // Success → redirect
+    router.push('/onboarding');
+  } catch (e: any) {
+    console.error("Delete account error:", e);
+
+    let errorMsg = e.message || 'Something went wrong.';
+
+    if (e.code === 'auth/requires-recent-login') {
+      errorMsg = 'Please sign in again before deleting your account.';
+    } else if (e.code === 'auth/wrong-password') {
+      errorMsg = 'Incorrect password. Please try again.';
+    } else if (e.code === 'permission-denied') {
+      errorMsg = 'Permission denied. Please try again after re-authenticating.';
+    }
+
+    setError(errorMsg);
+    setStep('confirm');
+  }
+};
 
   return (
     <section id="delete-account" className="scroll-mt-6">

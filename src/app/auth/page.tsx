@@ -48,10 +48,10 @@ const AuthPage: React.FC = () => {
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (isSignup && !termsAgreed) {
-      setError("Please agree to the Terms & Privacy Policy to continue.");
-      return;
-    }
+    // if (isSignup && !termsAgreed) {
+    //   setError("Please agree to the Terms & Privacy Policy to continue.");
+    //   return;
+    // }
     setLoading(true);
     try {
       if (isSignup) await createUserWithEmailAndPassword(auth, email, password);
@@ -232,7 +232,7 @@ const AuthPage: React.FC = () => {
               </div>
 
               {/* Terms */}
-              {/* {isSignup && (
+              {isSignup && (
                 <label className="flex items-start gap-2.5 cursor-pointer">
                   <div className="relative mt-0.5 shrink-0" onClick={() => setTermsAgreed(v => !v)}>
                     <div className="w-4 h-4 rounded border-2 flex items-center justify-center transition-all duration-150"
@@ -251,7 +251,7 @@ const AuthPage: React.FC = () => {
                     <a href="#" className="text-[#2e5bff] hover:underline">Privacy Policy</a>
                   </span>
                 </label>
-              )} */}
+              )}
 
               {/* Error */}
               {error && (

@@ -122,7 +122,7 @@ export default function ProjectGrid({
             {/* Left scroll button */}
             <button
               onClick={() => scrollBy('left')}
-              disabled={!canScrollLeft}
+              // disabled={!canScrollLeft}
               aria-label="Scroll categories left"
               className="w-8 h-8 shrink-0 flex items-center justify-center
                 rounded-lg border border-white/10 bg-[#151922]
@@ -162,7 +162,7 @@ export default function ProjectGrid({
             {/* Right scroll button */}
             <button
               onClick={() => scrollBy('right')}
-              disabled={!canScrollRight}
+              // disabled={!canScrollRight}
               aria-label="Scroll categories right"
               className="w-8 h-8 shrink-0 flex items-center justify-center
                 rounded-lg border border-white/10 bg-[#151922]
