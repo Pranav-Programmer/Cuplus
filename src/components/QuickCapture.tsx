@@ -186,23 +186,23 @@ const QuickCapture: React.FC<QuickCaptureProps> = ({ onSubmit }) => {
           )}
 
           {/* Footer row: notify toggle + save button */}
-          <div className="flex items-center justify-between pt-1">
+          <div className="flex items-center justify-end pt-1">
 
             {/* Notify toggle */}
-            <button type="button" onClick={() => setNotify(v => !v)}
+            {/* <button type="button" onClick={() => setNotify(v => !v)}
               className="flex items-center gap-2 text-xs font-medium transition-colors"
-              style={{ color: notify ? '#2e5bff' : 'var(--text-faint)' }}>
+              style={{ color: notify ? '#2e5bff' : 'var(--text-faint)' }}> */}
               {/* Custom toggle */}
-              <div className="relative w-7 h-4 rounded-full transition-colors duration-200"
+              {/* <div className="relative w-7 h-4 rounded-full transition-colors duration-200"
                 style={{ background: notify ? '#2e5bff' : 'var(--border-strong)' }}>
                 <div className="absolute top-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-all duration-200"
                   style={{ left: notify ? '14px' : '2px' }} />
-              </div>
-              <span className="material-icons" style={{ fontSize: 12 }}>
+              </div> */}
+              {/* <span className="material-icons" style={{ fontSize: 12 }}>
                 {notify ? 'notifications_active' : 'notifications_none'}
-              </span>
-              Notify
-            </button>
+              </span> */}
+              {/* Notify */}
+            {/* </button> */}
 
             {/* Save button */}
             <button

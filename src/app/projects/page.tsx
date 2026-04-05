@@ -104,7 +104,7 @@ export default function ProjectsPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen w-full bg-[#0B0E14] px-4 sm:px-8 py-8 overflow-y-auto no-scrollbar-mobile">
+      <div className="min-h-screen w-full bg-[#0B0E14] px-4 sm:px-8 pb-16 pt-6 sm:pb-8 overflow-y-auto no-scrollbar-mobile">
 
         {/* Hero banner with Create button */}
         <ProjectsHero onCreateNew={() => { setEditingProject(null); setCreatorOpen(true); }} />

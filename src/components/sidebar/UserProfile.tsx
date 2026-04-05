@@ -36,7 +36,7 @@ export default function UserProfile({ userId, displayName, email, photoURL }: Pr
   };
 
   return (
-    <div className="p-4 relative" style={{ borderTop: '1px solid var(--border)' }}>
+    <div className="p-4 relative mb-[35px] sm:mb-0" style={{ borderTop: '1px solid var(--border)' }}>
       <div className="flex items-center gap-3">
         {/* Avatar — clickable → profile */}
         <button onClick={() => router.push('/profile')}

@@ -36,7 +36,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className="w-64 h-full flex flex-col shrink-0 overflow-hidden"
+      className="w-64 h-full flex flex-col shrink-0 overflow-hidden mt-[35px] sm:mt-0"
       style={{ background: 'var(--surface)', borderRight: '1px solid var(--border)' }}
     >
       {/* ── Logo ── */}

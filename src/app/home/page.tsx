@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
   return (
   <Layout>
     {/* Outer: full-width flex column, scrollbar sits right against the aside */}
-    <div className="flex-1 overflow-y-auto no-scrollbar-mobile">
+    <div className="flex-1 overflow-y-auto no-scrollbar-mobile pb-4 sm:pb-0">
       {/* Inner: centers and pads the content */}
       <div className="p-4 md:p-0 lg:px-0 lg:py-12 max-w-4xl mx-auto">
         <Header />

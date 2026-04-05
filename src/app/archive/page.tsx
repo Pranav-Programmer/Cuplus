@@ -66,7 +66,7 @@ export default function ArchivePage() {
 
   return (
   <Layout>
-    <div className="min-h-screen w-full bg-[#0B0E14] px-4 sm:px-8 py-8 overflow-y-auto no-scrollbar-mobile">
+    <div className="min-h-screen w-full bg-[#0B0E14] px-4 sm:px-8 pb-16 pt-8 sm:pb-8 overflow-y-auto no-scrollbar-mobile">
 
       {/* ── Page header ── */}
       <div className="flex items-center gap-3 mb-2 mt-10 md:mt-0">

@@ -50,7 +50,7 @@ export default function ProfilePage() {
     };
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: 'var(--bg)' }}>
+    <div className="flex h-screen overflow-hidden mt-[36px] sm:mt-0" style={{ background: 'var(--bg)' }}>
 
       {/* ── Desktop sidebar ── */}
       <div className="hidden md:flex">
@@ -63,7 +63,7 @@ export default function ProfilePage() {
       </div>
 
       {/* ── Mobile sticky header ── */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-30 flex items-center gap-3 px-4 py-3"
+      <div className="md:hidden fixed top-0 left-0 right-0 z-30 flex items-center gap-3 px-4 py-3 pt-[35px] sm:pt-0"
         style={{ background: 'var(--surface)', borderBottom: '1px solid var(--border)' }}>
         <button onClick={() => router.back()}
           className="w-8 h-8 flex items-center justify-center rounded-xl"

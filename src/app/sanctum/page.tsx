@@ -88,7 +88,7 @@ function SanctumGate({ settings, onUnlocked, userId }: GateProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-16">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-16 no-scrollbar-mobile">
 
       {/* Icon + title */}
       <div className="mb-8 flex flex-col items-center gap-3">
@@ -104,7 +104,7 @@ function SanctumGate({ settings, onUnlocked, userId }: GateProps) {
         </p>
       </div>
 
-      <div className="w-full max-w-sm bg-[#151922] border border-white/10 rounded-2xl p-6 shadow-2xl">
+      <div className="w-full max-w-sm bg-[#151922] border border-white/10 rounded-2xl p-6 shadow-2xl no-scrollbar-mobile">
 
         {/* Space selector */}
         <div className="flex gap-2 mb-6 p-1 bg-[#0B0E14] rounded-xl">
@@ -134,7 +134,7 @@ function SanctumGate({ settings, onUnlocked, userId }: GateProps) {
           })}
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 no-scrollbar-mobile">
 
           {mode === 'activate' && (
             <div className="flex items-start gap-2 rounded-xl bg-violet-500/10
@@ -555,7 +555,7 @@ export default function SanctumPage() {
         ) : (
           <>
             {/* ── Unlocked content ── */}
-            <div className="px-4 sm:px-8 py-8">
+            <div className="px-4 sm:px-8 pb-16 pt-6 sm:pb-8">
 
             {/* ── Desktop-only slim top bar: Switch button ── */}
               {/* On mobile the Switch button lives inside SanctumHero */}

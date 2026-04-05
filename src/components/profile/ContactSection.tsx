@@ -7,7 +7,7 @@ export default function ContactSection({ prefillName = '', prefillEmail = '' }: 
   const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
   const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
   const formRef = useRef<HTMLFormElement>(null);
-  const [fields, setFields] = useState({ name: prefillName, email: prefillEmail, mobile: '', message: '' });
+  const [fields, setFields] = useState({ name: prefillName, email: prefillEmail, mobile: '', message: '', subject: '', to_email: 'beatsbreakers@gmail.com', from:'From', cd:'Contact Details' });
   const [sending, setSending] = useState(false);
   const [done,    setDone]    = useState(false);
   const [error,   setError]   = useState('');
@@ -33,7 +33,7 @@ export default function ContactSection({ prefillName = '', prefillEmail = '' }: 
         publicKey,
       );
       setDone(true);
-      setFields({ name: prefillName, email: prefillEmail, mobile: '', message: '' });
+      setFields({ name: prefillName, email: prefillEmail, mobile: '', message: '', subject: '', to_email: 'beatsbreakers@gmail.com', from:'From', cd:'Contact Details' });
     } catch (e: any) {
       setError('Failed to send message. Please try again.');
       // console.error(e);
@@ -78,6 +78,9 @@ export default function ContactSection({ prefillName = '', prefillEmail = '' }: 
         </div>
       ) : (
         <form ref={formRef} onSubmit={handleSend} className="space-y-4">
+          <input type="hidden" name="to_email" value={fields.to_email} />
+          <input type="hidden" name="from" value={fields.from} />
+          <input type="hidden" name="cd" value={fields.cd} />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-wider block mb-1.5"
@@ -101,6 +104,16 @@ export default function ContactSection({ prefillName = '', prefillEmail = '' }: 
             </label>
             <input name="mobile" type="tel" value={fields.mobile} onChange={handleChange}
               placeholder="+1 234 567 890…" style={inputStyle} onFocus={onFocus} onBlur={onBlur} />
+          </div>
+
+          <div>
+            <label className="text-[11px] font-semibold uppercase tracking-wider block mb-1.5"
+              style={{ color: 'var(--text-faint)' }}>Subject *</label>
+            <textarea name="subject" required rows={2} value={fields.subject} onChange={handleChange}
+              placeholder="Write your subject here…"
+              className="w-full rounded-xl px-4 py-3 text-sm outline-none resize-none"
+              style={{ background: 'var(--bg)', border: '1px solid var(--border-strong)', color: 'var(--text-main)' }}
+              onFocus={onFocus as any} onBlur={onBlur as any} />
           </div>
 
           <div>

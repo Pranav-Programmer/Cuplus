@@ -64,7 +64,7 @@ function SanctumGate({ settings, onUnlocked }: GateProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-4">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-4  no-scrollbar-mobile">
       <div className="mb-8 flex flex-col items-center gap-3">
         <div className="w-16 h-16 rounded-2xl bg-violet-500/10 border border-violet-500/30
           flex items-center justify-center">
@@ -288,7 +288,7 @@ export default function SanctumProjectPageClient() {
     <>
       <div className="min-h-screen bg-[#0B0E14] flex flex-col">
         <header className="sticky top-0 z-30 bg-[#151922]/95 backdrop-blur
-          border-b border-white/10 px-4 sm:px-8 py-4">
+          border-b border-white/10 px-4 sm:px-8 py-4 pt-[35px] sm:pt-4">
           <div className="max-w-5xl mx-auto flex items-center gap-3">
             <span className={`hidden sm:inline-flex items-center px-2 py-0.5 rounded-full
               text-[10px] font-semibold uppercase border ${accentClass.pill}`}>

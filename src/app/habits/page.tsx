@@ -974,7 +974,7 @@ export default function HabitsPage() {
     <Layout>
       {/* Page wrapper uses CSS variable for background */}
       <div
-        className="min-h-screen px-4 sm:px-8 py-8 w-full overflow-y-auto no-scrollbar-mobile mt-10 md:mt-0"
+        className="min-h-screen px-4 sm:px-8 pb-18 pt-8 sm:pb-8 w-full overflow-y-auto no-scrollbar-mobile mt-10 md:mt-0"
         style={{ background: "var(--bg)" }}
       >
         {/* Header */}

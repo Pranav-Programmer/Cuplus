@@ -155,7 +155,7 @@ const NoteDetailPageClient: React.FC = () => {
   if (loading) return <CuplusLoader fullScreen label="Loading note…" />;
 
   if (!note) return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-4"
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 pt-[35px] sm:pt-0"
       style={{ background: 'var(--bg)' }}>
       <span className="material-icons text-5xl" style={{ color: 'var(--text-faint)' }}>
         sticky_note_2
@@ -234,7 +234,7 @@ const NoteDetailPageClient: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col h-screen" style={{ background: 'var(--bg)' }}>
+    <div className="flex flex-col h-screen pt-[35px] sm:pt-0" style={{ background: 'var(--bg)' }}>
       <header className="shrink-0 sticky top-0 z-30 px-4 sm:px-8 py-3"
         style={{ background: 'var(--surface)', borderBottom: '1px solid var(--border)', backdropFilter: 'blur(12px)' }}>
         <div className="max-w-4xl mx-auto flex items-center gap-3">
@@ -342,7 +342,7 @@ const NoteDetailPageClient: React.FC = () => {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto no-scrollbar-mobile">
         <div className="max-w-4xl mx-auto px-4 sm:px-8 py-8">
           {!isEditing ? (
             <div>

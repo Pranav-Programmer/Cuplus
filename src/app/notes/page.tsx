@@ -422,7 +422,7 @@ const NotesPage: React.FC = () => {
           )}
         </div>
 
-        <div className="px-4 py-4 space-y-4">
+        <div className="px-4 pb-8 pt-4 sm:pb-4 space-y-4">
           {showCreator ? (
             <NoteCreator onSubmit={handleAddNote} />
           ) : (

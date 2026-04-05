@@ -14,7 +14,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
       {/* Full-width black bar behind Hamburger Button (mobile only) */}
       {!isMenuOpen && (
-        <div className="fixed top-0 left-0 right-0 h-14 bg-background-dark/80 backdrop-blur-sm z-40 md:hidden" />
+        <div className="fixed top-0 left-0 right-0 h-14 bg-background-dark/80 backdrop-blur-sm z-40 md:hidden mt-[35px] sm:mt-0" />
       )}
       
       {/* Sidebar - Hidden on <md, shown via toggle */}
@@ -35,7 +35,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       )}
 
       {/* Main Content - Flex-1, scrollable */}
-      <main className="flex relative w-screen">
+      <main className="flex relative w-screen mt-[37px] sm:mt-0">
         {/* Hamburger Button - Visible only on <md */}
         <div className="absolute top-3 left-4 z-40 md:hidden text-white focus:outline-none flex justify-between">
          {!isMenuOpen ? <div className="ml-10 flex flex-1 gap-2 justify-center items-center">

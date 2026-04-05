@@ -290,14 +290,14 @@ const TaskCard = ({
                   </span>
                   {task.time}
                 </span>
-                {task.notify && (
+                {/* {task.notify && (
                   <span className="flex items-center gap-1">
                     <span className="material-icons" style={{ fontSize: 11 }}>
                       notifications_active
                     </span>
                     Notify on
                   </span>
-                )}
+                )} */}
               </div>
             </div>
           )}
@@ -564,7 +564,7 @@ const TasksPage: React.FC = () => {
           )}
         </div>
 
-        <div className="px-4 py-4 space-y-4">
+        <div className="px-4 pb-8 pt-4 sm:pb-4 space-y-4">
           {showQuickCapture && (
             <QuickCapture onSubmit={handleQuickCaptureSubmit} />
           )}

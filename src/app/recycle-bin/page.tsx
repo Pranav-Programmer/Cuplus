@@ -186,7 +186,7 @@ export default function RecycleBinPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-[#0B0E14] px-4 sm:px-8 py-8 w-full overflow-y-auto no-scrollbar-mobile">
+      <div className="min-h-screen bg-[#0B0E14] px-4 sm:px-8 pb-16 pt-6 sm:pb-8 w-full overflow-y-auto no-scrollbar-mobile">
 
         {/* ── Page header ── */}
         <div className="flex items-center gap-3 mb-2 mt-10 md:mt-0">

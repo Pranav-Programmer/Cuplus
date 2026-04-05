@@ -98,7 +98,7 @@ export default function ProjectPage() {
 
   if (error || !project) {
     return (
-      <div className="min-h-screen bg-[#0B0E14] flex flex-col items-center justify-center gap-4">
+      <div className="min-h-screen bg-[#0B0E14] flex flex-col items-center justify-center gap-4 pt-[35px] sm:pt-0">
         <p className="text-red-400">{error || 'Project not found.'}</p>
         <Link
           href={isArchived ? "/archive" : "/projects"}
@@ -111,7 +111,7 @@ export default function ProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0E14] flex flex-col">
+    <div className="min-h-screen bg-[#0B0E14] flex flex-col pt-[35px] sm:pt-0">
 
       {/* ── Header ── */}
       <header className="sticky top-0 z-30 bg-[#151922]/95 backdrop-blur border-b border-white/10 px-4 sm:px-8 py-4">
