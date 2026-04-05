@@ -4,6 +4,7 @@
 /android
 /firebase
 /node_modules
+/.amazonq
 /.pnp
 .pnp.*
 .yarn/*
